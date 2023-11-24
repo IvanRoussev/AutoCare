@@ -1,42 +1,42 @@
 -- name: CreateCar :one
-INSERT INTO car (vin, owner_id, make, model, year
+INSERT INTO cars (vin, owner_id, make, model, year
 ) VALUES (
 $1, $2, $3, $4, $5
 ) RETURNING *;
 
 -- name: GetCarByVIN :one
-SELECT * FROM car
+SELECT * FROM cars
 WHERE vin = $1 LIMIT 1;
 
 -- name: ListCars :many
-SELECT * FROM car
+SELECT * FROM cars
 ORDER BY vin
 LIMIT $1
 OFFSET $2;
 
 -- name: UpdateCarOwnerIdByVIN :one
-UPDATE car
+UPDATE cars
 SET owner_id = $2
 WHERE vin = $1
 RETURNING  *;
 
 -- name: UpdateCarMakeByVIN :one
-UPDATE car
+UPDATE cars
 SET make = $2
 WHERE vin = $1
 RETURNING *;
 
 -- name: UpdateCarModelByVIN :one
-UPDATE car
+UPDATE cars
 SET model = $2
 WHERE vin = $1
 RETURNING *;
 
 -- name: UpdateCarYearByVIN :one
-UPDATE car
+UPDATE cars
 SET year = $2
 WHERE vin = $1
 RETURNING *;
 
 -- name: DeleteCarByVIN :exec
-DELETE FROM car WHERE vin = $1;
+DELETE FROM cars WHERE vin = $1;

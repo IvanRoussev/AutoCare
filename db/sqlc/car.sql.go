@@ -8,7 +8,7 @@ import (
 )
 
 const createCar = `-- name: CreateCar :one
-INSERT INTO car (vin, owner_id, make, model, year
+INSERT INTO cars (vin, owner_id, make, model, year
 ) VALUES (
 $1, $2, $3, $4, $5
 ) RETURNING vin, owner_id, make, model, year
@@ -42,7 +42,7 @@ func (q *Queries) CreateCar(ctx context.Context, arg CreateCarParams) (Car, erro
 }
 
 const deleteCarByVIN = `-- name: DeleteCarByVIN :exec
-DELETE FROM car WHERE vin = $1
+DELETE FROM cars WHERE vin = $1
 `
 
 func (q *Queries) DeleteCarByVIN(ctx context.Context, vin string) error {
@@ -51,7 +51,7 @@ func (q *Queries) DeleteCarByVIN(ctx context.Context, vin string) error {
 }
 
 const getCarByVIN = `-- name: GetCarByVIN :one
-SELECT vin, owner_id, make, model, year FROM car
+SELECT vin, owner_id, make, model, year FROM cars
 WHERE vin = $1 LIMIT 1
 `
 
@@ -69,7 +69,7 @@ func (q *Queries) GetCarByVIN(ctx context.Context, vin string) (Car, error) {
 }
 
 const listCars = `-- name: ListCars :many
-SELECT vin, owner_id, make, model, year FROM car
+SELECT vin, owner_id, make, model, year FROM cars
 ORDER BY vin
 LIMIT $1
 OFFSET $2
@@ -86,7 +86,7 @@ func (q *Queries) ListCars(ctx context.Context, arg ListCarsParams) ([]Car, erro
 		return nil, err
 	}
 	defer rows.Close()
-	var items []Car
+	items := []Car{}
 	for rows.Next() {
 		var i Car
 		if err := rows.Scan(
@@ -110,7 +110,7 @@ func (q *Queries) ListCars(ctx context.Context, arg ListCarsParams) ([]Car, erro
 }
 
 const updateCarMakeByVIN = `-- name: UpdateCarMakeByVIN :one
-UPDATE car
+UPDATE cars
 SET make = $2
 WHERE vin = $1
 RETURNING vin, owner_id, make, model, year
@@ -135,7 +135,7 @@ func (q *Queries) UpdateCarMakeByVIN(ctx context.Context, arg UpdateCarMakeByVIN
 }
 
 const updateCarModelByVIN = `-- name: UpdateCarModelByVIN :one
-UPDATE car
+UPDATE cars
 SET model = $2
 WHERE vin = $1
 RETURNING vin, owner_id, make, model, year
@@ -160,7 +160,7 @@ func (q *Queries) UpdateCarModelByVIN(ctx context.Context, arg UpdateCarModelByV
 }
 
 const updateCarOwnerIdByVIN = `-- name: UpdateCarOwnerIdByVIN :one
-UPDATE car
+UPDATE cars
 SET owner_id = $2
 WHERE vin = $1
 RETURNING  vin, owner_id, make, model, year
@@ -185,7 +185,7 @@ func (q *Queries) UpdateCarOwnerIdByVIN(ctx context.Context, arg UpdateCarOwnerI
 }
 
 const updateCarYearByVIN = `-- name: UpdateCarYearByVIN :one
-UPDATE car
+UPDATE cars
 SET year = $2
 WHERE vin = $1
 RETURNING vin, owner_id, make, model, year

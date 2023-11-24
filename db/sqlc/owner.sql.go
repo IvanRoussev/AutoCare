@@ -8,7 +8,7 @@ import (
 )
 
 const createOwner = `-- name: CreateOwner :one
-INSERT INTO owner (
+INSERT INTO owners (
  first_name, last_name, country
 ) VALUES (
  $1, $2, $3
@@ -35,7 +35,7 @@ func (q *Queries) CreateOwner(ctx context.Context, arg CreateOwnerParams) (Owner
 }
 
 const deleteOwnerByID = `-- name: DeleteOwnerByID :exec
-DELETE FROM owner WHERE id = $1
+DELETE FROM owners WHERE id = $1
 `
 
 func (q *Queries) DeleteOwnerByID(ctx context.Context, id int64) error {
@@ -44,7 +44,7 @@ func (q *Queries) DeleteOwnerByID(ctx context.Context, id int64) error {
 }
 
 const getOwnerByID = `-- name: GetOwnerByID :one
-SELECT id, first_name, last_name, country, created_at FROM owner
+SELECT id, first_name, last_name, country, created_at FROM owners
 WHERE id = $1 LIMIT 1
 `
 
@@ -62,7 +62,7 @@ func (q *Queries) GetOwnerByID(ctx context.Context, id int64) (Owner, error) {
 }
 
 const listOwners = `-- name: ListOwners :many
-SELECT id, first_name, last_name, country, created_at FROM owner
+SELECT id, first_name, last_name, country, created_at FROM owners
 ORDER BY id
 LIMIT $1
 OFFSET $2
@@ -79,7 +79,7 @@ func (q *Queries) ListOwners(ctx context.Context, arg ListOwnersParams) ([]Owner
 		return nil, err
 	}
 	defer rows.Close()
-	var items []Owner
+	items := []Owner{}
 	for rows.Next() {
 		var i Owner
 		if err := rows.Scan(
@@ -103,7 +103,7 @@ func (q *Queries) ListOwners(ctx context.Context, arg ListOwnersParams) ([]Owner
 }
 
 const updateOwnerCountryByID = `-- name: UpdateOwnerCountryByID :one
-UPDATE owner
+UPDATE owners
 SET country = $2
 WHERE id = $1
 RETURNING id, first_name, last_name, country, created_at
@@ -128,7 +128,7 @@ func (q *Queries) UpdateOwnerCountryByID(ctx context.Context, arg UpdateOwnerCou
 }
 
 const updateOwnerFirstNameByID = `-- name: UpdateOwnerFirstNameByID :one
-UPDATE owner
+UPDATE owners
 SET first_name = $2
 WHERE id = $1
 RETURNING  id, first_name, last_name, country, created_at
@@ -153,7 +153,7 @@ func (q *Queries) UpdateOwnerFirstNameByID(ctx context.Context, arg UpdateOwnerF
 }
 
 const updateOwnerLastNameByID = `-- name: UpdateOwnerLastNameByID :one
-UPDATE owner
+UPDATE owners
 SET last_name = $2
 WHERE id = $1
 RETURNING id, first_name, last_name, country, created_at

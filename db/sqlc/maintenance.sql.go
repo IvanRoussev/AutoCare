@@ -8,7 +8,7 @@ import (
 )
 
 const createMaintenance = `-- name: CreateMaintenance :one
-INSERT INTO maintenance (
+INSERT INTO maintenances (
 car_vin, maintenance_type, mileage
 ) VALUES (
 $1, $2, $3
@@ -35,7 +35,7 @@ func (q *Queries) CreateMaintenance(ctx context.Context, arg CreateMaintenancePa
 }
 
 const deleteMaintenanceByID = `-- name: DeleteMaintenanceByID :exec
-DELETE FROM maintenance WHERE maintenance_id = $1
+DELETE FROM maintenances WHERE maintenance_id = $1
 `
 
 func (q *Queries) DeleteMaintenanceByID(ctx context.Context, maintenanceID int32) error {
@@ -44,7 +44,7 @@ func (q *Queries) DeleteMaintenanceByID(ctx context.Context, maintenanceID int32
 }
 
 const deleteMaintenanceByVIN = `-- name: DeleteMaintenanceByVIN :exec
-DELETE FROM maintenance WHERE car_vin = $1
+DELETE FROM maintenances WHERE car_vin = $1
 `
 
 func (q *Queries) DeleteMaintenanceByVIN(ctx context.Context, carVin string) error {
@@ -53,7 +53,7 @@ func (q *Queries) DeleteMaintenanceByVIN(ctx context.Context, carVin string) err
 }
 
 const getMaintenanceByID = `-- name: GetMaintenanceByID :one
-SELECT maintenance_id, car_vin, maintenance_type, mileage, created_at FROM maintenance
+SELECT maintenance_id, car_vin, maintenance_type, mileage, created_at FROM maintenances
 WHERE maintenance_id = $1 LIMIT 1
 `
 
@@ -71,7 +71,7 @@ func (q *Queries) GetMaintenanceByID(ctx context.Context, maintenanceID int32) (
 }
 
 const getMaintenanceByVIN = `-- name: GetMaintenanceByVIN :one
-SELECT maintenance_id, car_vin, maintenance_type, mileage, created_at FROM maintenance
+SELECT maintenance_id, car_vin, maintenance_type, mileage, created_at FROM maintenances
 WHERE car_vin = $1 LIMIT 1
 `
 
@@ -89,7 +89,7 @@ func (q *Queries) GetMaintenanceByVIN(ctx context.Context, carVin string) (Maint
 }
 
 const listMaintenances = `-- name: ListMaintenances :many
-SELECT maintenance_id, car_vin, maintenance_type, mileage, created_at FROM maintenance
+SELECT maintenance_id, car_vin, maintenance_type, mileage, created_at FROM maintenances
 ORDER BY car_vin
 LIMIT $1
 OFFSET $2
@@ -106,7 +106,7 @@ func (q *Queries) ListMaintenances(ctx context.Context, arg ListMaintenancesPara
 		return nil, err
 	}
 	defer rows.Close()
-	var items []Maintenance
+	items := []Maintenance{}
 	for rows.Next() {
 		var i Maintenance
 		if err := rows.Scan(
@@ -130,7 +130,7 @@ func (q *Queries) ListMaintenances(ctx context.Context, arg ListMaintenancesPara
 }
 
 const updateMaintenanceMileageByVIN = `-- name: UpdateMaintenanceMileageByVIN :one
-UPDATE maintenance
+UPDATE maintenances
 SET mileage = $2
 WHERE car_vin = $1
 RETURNING maintenance_id, car_vin, maintenance_type, mileage, created_at
@@ -155,7 +155,7 @@ func (q *Queries) UpdateMaintenanceMileageByVIN(ctx context.Context, arg UpdateM
 }
 
 const updateMaintenanceTypeByVIN = `-- name: UpdateMaintenanceTypeByVIN :one
-UPDATE maintenance
+UPDATE maintenances
 SET maintenance_type = $2
 WHERE car_vin = $1
 RETURNING  maintenance_id, car_vin, maintenance_type, mileage, created_at
