@@ -21,7 +21,7 @@ jobs:
           POSTGRES_DB: auto_care
           POSTGRES_PORT: 5432
           ports:
-            5432:5432
+            - 5432:5432
           options: >-
             --health-cmd pg_isready
             --health-interval 10s
