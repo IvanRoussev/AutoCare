@@ -23,7 +23,7 @@ type Maintenance struct {
 }
 
 type Owner struct {
-	ID        int64     `json:"id"`
+	ID        int32     `json:"id"`
 	FirstName string    `json:"first_name"`
 	LastName  string    `json:"last_name"`
 	Country   string    `json:"country"`
