@@ -4,24 +4,29 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	_ "github.com/golang/mock/mockgen/model"
 )
 
-// Store provides all features to execute db queries with transactions
-type Store struct {
+type Store interface {
+	Querier
+}
+
+// SQLStore provides all features to execute SQL queries and transactions
+type SQLStore struct {
 	*Queries
 	db *sql.DB
 }
 
 // NewStore creates a new Store
-func NewStore(db *sql.DB) *Store {
-	return &Store{
+func NewStore(db *sql.DB) Store {
+	return &SQLStore{
 		db:      db,
 		Queries: New(db),
 	}
 }
 
 // ExecTx executes a function within a database transaction
-func (store *Store) execTx(ctx context.Context, fn func(queries *Queries) error) error {
+func (store *SQLStore) execTx(ctx context.Context, fn func(queries *Queries) error) error {
 	tx, err := store.db.BeginTx(ctx, nil)
 	if err != nil {
 		return err
