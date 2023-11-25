@@ -9,7 +9,7 @@ import (
 
 type createCarRequest struct {
 	Vin     string `json:"vin"`
-	OwnerID int32  `json:"owner_id"`
+	OwnerID int64  `json:"owner_id"`
 	Make    string `json:"make"`
 	Model   string `json:"model"`
 	Year    int32  `json:"year"`
@@ -107,7 +107,7 @@ type getListCarsByOwnerIDRequest struct {
 }
 
 type listCarsByOwnerRequest struct {
-	OwnerID int32 `uri:"owner_id" binding:"required,min=1"`
+	OwnerID int64 `uri:"owner_id" binding:"required,min=1"`
 }
 
 func (server *Server) getListCarsByOwnerID(ctx *gin.Context) {
