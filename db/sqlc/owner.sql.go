@@ -110,7 +110,7 @@ RETURNING id, first_name, last_name, country, created_at
 `
 
 type UpdateOwnerCountryByIDParams struct {
-	ID      int32  `json:"id"`
+	ID      int64  `json:"id"`
 	Country string `json:"country"`
 }
 
@@ -135,7 +135,7 @@ RETURNING  id, first_name, last_name, country, created_at
 `
 
 type UpdateOwnerFirstNameByIDParams struct {
-	ID        int32  `json:"id"`
+	ID        int64  `json:"id"`
 	FirstName string `json:"first_name"`
 }
 
@@ -160,7 +160,7 @@ RETURNING id, first_name, last_name, country, created_at
 `
 
 type UpdateOwnerLastNameByIDParams struct {
-	ID       int32  `json:"id"`
+	ID       int64  `json:"id"`
 	LastName string `json:"last_name"`
 }
 

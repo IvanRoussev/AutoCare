@@ -8,7 +8,7 @@ import (
 
 type Car struct {
 	Vin     string `json:"vin"`
-	OwnerID int32  `json:"owner_id"`
+	OwnerID int64  `json:"owner_id"`
 	Make    string `json:"make"`
 	Model   string `json:"model"`
 	Year    int32  `json:"year"`
@@ -23,7 +23,7 @@ type Maintenance struct {
 }
 
 type Owner struct {
-	ID        int32     `json:"id"`
+	ID        int64     `json:"id"`
 	FirstName string    `json:"first_name"`
 	LastName  string    `json:"last_name"`
 	Country   string    `json:"country"`

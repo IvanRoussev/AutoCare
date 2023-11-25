@@ -16,7 +16,7 @@ $1, $2, $3, $4, $5
 
 type CreateCarParams struct {
 	Vin     string `json:"vin"`
-	OwnerID int32  `json:"owner_id"`
+	OwnerID int64  `json:"owner_id"`
 	Make    string `json:"make"`
 	Model   string `json:"model"`
 	Year    int32  `json:"year"`
@@ -117,7 +117,7 @@ OFFSET $3
 `
 
 type ListCarsByOwnerIDParams struct {
-	OwnerID int32 `json:"owner_id"`
+	OwnerID int64 `json:"owner_id"`
 	Limit   int32 `json:"limit"`
 	Offset  int32 `json:"offset"`
 }
@@ -210,7 +210,7 @@ RETURNING  vin, owner_id, make, model, year
 
 type UpdateCarOwnerIdByVINParams struct {
 	Vin     string `json:"vin"`
-	OwnerID int32  `json:"owner_id"`
+	OwnerID int64  `json:"owner_id"`
 }
 
 func (q *Queries) UpdateCarOwnerIdByVIN(ctx context.Context, arg UpdateCarOwnerIdByVINParams) (Car, error) {
