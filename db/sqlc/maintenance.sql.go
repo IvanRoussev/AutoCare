@@ -52,6 +52,48 @@ func (q *Queries) DeleteMaintenanceByVIN(ctx context.Context, carVin string) err
 	return err
 }
 
+const getListMaintenancesByVIN = `-- name: GetListMaintenancesByVIN :many
+SELECT maintenance_id, car_vin, maintenance_type, mileage, created_at FROM maintenances
+WHERE car_vin = $1
+LIMIT $2
+OFFSET $3
+`
+
+type GetListMaintenancesByVINParams struct {
+	CarVin string `json:"car_vin"`
+	Limit  int32  `json:"limit"`
+	Offset int32  `json:"offset"`
+}
+
+func (q *Queries) GetListMaintenancesByVIN(ctx context.Context, arg GetListMaintenancesByVINParams) ([]Maintenance, error) {
+	rows, err := q.db.QueryContext(ctx, getListMaintenancesByVIN, arg.CarVin, arg.Limit, arg.Offset)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []Maintenance{}
+	for rows.Next() {
+		var i Maintenance
+		if err := rows.Scan(
+			&i.MaintenanceID,
+			&i.CarVin,
+			&i.MaintenanceType,
+			&i.Mileage,
+			&i.CreatedAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const getMaintenanceByID = `-- name: GetMaintenanceByID :one
 SELECT maintenance_id, car_vin, maintenance_type, mileage, created_at FROM maintenances
 WHERE maintenance_id = $1 LIMIT 1
@@ -59,24 +101,6 @@ WHERE maintenance_id = $1 LIMIT 1
 
 func (q *Queries) GetMaintenanceByID(ctx context.Context, maintenanceID int32) (Maintenance, error) {
 	row := q.db.QueryRowContext(ctx, getMaintenanceByID, maintenanceID)
-	var i Maintenance
-	err := row.Scan(
-		&i.MaintenanceID,
-		&i.CarVin,
-		&i.MaintenanceType,
-		&i.Mileage,
-		&i.CreatedAt,
-	)
-	return i, err
-}
-
-const getMaintenanceByVIN = `-- name: GetMaintenanceByVIN :one
-SELECT maintenance_id, car_vin, maintenance_type, mileage, created_at FROM maintenances
-WHERE car_vin = $1 LIMIT 1
-`
-
-func (q *Queries) GetMaintenanceByVIN(ctx context.Context, carVin string) (Maintenance, error) {
-	row := q.db.QueryRowContext(ctx, getMaintenanceByVIN, carVin)
 	var i Maintenance
 	err := row.Scan(
 		&i.MaintenanceID,

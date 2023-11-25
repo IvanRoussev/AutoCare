@@ -16,7 +16,7 @@ $1, $2, $3, $4, $5
 
 type CreateCarParams struct {
 	Vin     string `json:"vin"`
-	OwnerID int64  `json:"owner_id"`
+	OwnerID int32  `json:"owner_id"`
 	Make    string `json:"make"`
 	Model   string `json:"model"`
 	Year    int32  `json:"year"`
@@ -109,6 +109,48 @@ func (q *Queries) ListCars(ctx context.Context, arg ListCarsParams) ([]Car, erro
 	return items, nil
 }
 
+const listCarsByOwnerID = `-- name: ListCarsByOwnerID :many
+SELECT vin, owner_id, make, model, year FROM cars
+WHERE owner_id = $1
+LIMIT $2
+OFFSET $3
+`
+
+type ListCarsByOwnerIDParams struct {
+	OwnerID int32 `json:"owner_id"`
+	Limit   int32 `json:"limit"`
+	Offset  int32 `json:"offset"`
+}
+
+func (q *Queries) ListCarsByOwnerID(ctx context.Context, arg ListCarsByOwnerIDParams) ([]Car, error) {
+	rows, err := q.db.QueryContext(ctx, listCarsByOwnerID, arg.OwnerID, arg.Limit, arg.Offset)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []Car{}
+	for rows.Next() {
+		var i Car
+		if err := rows.Scan(
+			&i.Vin,
+			&i.OwnerID,
+			&i.Make,
+			&i.Model,
+			&i.Year,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const updateCarMakeByVIN = `-- name: UpdateCarMakeByVIN :one
 UPDATE cars
 SET make = $2
@@ -168,7 +210,7 @@ RETURNING  vin, owner_id, make, model, year
 
 type UpdateCarOwnerIdByVINParams struct {
 	Vin     string `json:"vin"`
-	OwnerID int64  `json:"owner_id"`
+	OwnerID int32  `json:"owner_id"`
 }
 
 func (q *Queries) UpdateCarOwnerIdByVIN(ctx context.Context, arg UpdateCarOwnerIdByVINParams) (Car, error) {

@@ -14,6 +14,12 @@ ORDER BY vin
 LIMIT $1
 OFFSET $2;
 
+-- name: ListCarsByOwnerID :many
+SELECT * FROM cars
+WHERE owner_id = $1
+LIMIT $2
+OFFSET $3;
+
 -- name: UpdateCarOwnerIdByVIN :one
 UPDATE cars
 SET owner_id = $2

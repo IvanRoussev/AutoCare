@@ -5,9 +5,6 @@ car_vin, maintenance_type, mileage
 $1, $2, $3
 ) RETURNING *;
 
--- name: GetMaintenanceByVIN :one
-SELECT * FROM maintenances
-WHERE car_vin = $1 LIMIT 1;
 
 -- name: GetMaintenanceByID :one
 SELECT * FROM maintenances
@@ -18,6 +15,13 @@ SELECT * FROM maintenances
 ORDER BY car_vin
 LIMIT $1
 OFFSET $2;
+
+-- name: GetListMaintenancesByVIN :many
+SELECT * FROM maintenances
+WHERE car_vin = $1
+LIMIT $2
+OFFSET $3;
+
 
 -- name: UpdateMaintenanceTypeByVIN :one
 UPDATE maintenances

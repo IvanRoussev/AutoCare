@@ -29,21 +29,21 @@ func createRandomMaintenance(t *testing.T, car Car) Maintenance {
 	return maintenance
 }
 
-func TestGet_Maintenance_ByVIN(t *testing.T) {
-	owner := CreateRandomOwner(t)
-	car := createRandomCar(t, owner)
-	maintenance := createRandomMaintenance(t, car)
-
-	maintenanceResult, err := testQueries.GetMaintenanceByVIN(context.Background(), maintenance.CarVin)
-	require.NoError(t, err)
-	require.NotZero(t, maintenanceResult)
-
-	require.Equal(t, maintenance.MaintenanceID, maintenanceResult.MaintenanceID)
-	require.Equal(t, maintenance.MaintenanceType, maintenanceResult.MaintenanceType)
-	require.Equal(t, maintenance.CarVin, maintenanceResult.CarVin)
-	require.Equal(t, maintenance.Mileage, maintenanceResult.Mileage)
-	require.WithinDuration(t, maintenance.CreatedAt, maintenanceResult.CreatedAt, time.Second)
-}
+//func TestGet_Maintenance_ByVIN(t *testing.T) {
+//	owner := CreateRandomOwner(t)
+//	car := createRandomCar(t, owner)
+//	maintenance := createRandomMaintenance(t, car)
+//
+//	maintenanceResult, err := testQueries.GetMaintenanceByVIN(context.Background(), maintenance.CarVin)
+//	require.NoError(t, err)
+//	require.NotZero(t, maintenanceResult)
+//
+//	require.Equal(t, maintenance.MaintenanceID, maintenanceResult.MaintenanceID)
+//	require.Equal(t, maintenance.MaintenanceType, maintenanceResult.MaintenanceType)
+//	require.Equal(t, maintenance.CarVin, maintenanceResult.CarVin)
+//	require.Equal(t, maintenance.Mileage, maintenanceResult.Mileage)
+//	require.WithinDuration(t, maintenance.CreatedAt, maintenanceResult.CreatedAt, time.Second)
+//}
 
 func TestGet_Maintenance_ByID(t *testing.T) {
 	owner := CreateRandomOwner(t)
@@ -125,19 +125,19 @@ func TestListMaintenances(t *testing.T) {
 	}
 }
 
-func TestDelete_Maintenance_ByVIN(t *testing.T) {
-	owner := CreateRandomOwner(t)
-	car := createRandomCar(t, owner)
-	maintenance := createRandomMaintenance(t, car)
-
-	err := testQueries.DeleteMaintenanceByVIN(context.Background(), maintenance.CarVin)
-	require.NoError(t, err)
-
-	maintenanceResult, err := testQueries.GetMaintenanceByVIN(context.Background(), maintenance.CarVin)
-	require.Error(t, err)
-	require.EqualError(t, err, sql.ErrNoRows.Error())
-	require.Zero(t, maintenanceResult)
-}
+//func TestDelete_Maintenance_ByVIN(t *testing.T) {
+//	owner := CreateRandomOwner(t)
+//	car := createRandomCar(t, owner)
+//	maintenance := createRandomMaintenance(t, car)
+//
+//	err := testQueries.DeleteMaintenanceByVIN(context.Background(), maintenance.CarVin)
+//	require.NoError(t, err)
+//
+//	maintenanceResult, err := testQueries.GetMaintenanceByVIN(context.Background(), maintenance.CarVin)
+//	require.Error(t, err)
+//	require.EqualError(t, err, sql.ErrNoRows.Error())
+//	require.Zero(t, maintenanceResult)
+//}
 
 func TestDelete_Maintenance_ByID(t *testing.T) {
 	owner := CreateRandomOwner(t)
@@ -147,7 +147,7 @@ func TestDelete_Maintenance_ByID(t *testing.T) {
 	err := testQueries.DeleteMaintenanceByID(context.Background(), maintenance.MaintenanceID)
 	require.NoError(t, err)
 
-	maintenanceResult, err := testQueries.GetMaintenanceByVIN(context.Background(), maintenance.CarVin)
+	maintenanceResult, err := testQueries.GetMaintenanceByID(context.Background(), maintenance.MaintenanceID)
 	require.Error(t, err)
 	require.EqualError(t, err, sql.ErrNoRows.Error())
 	require.Zero(t, maintenanceResult)

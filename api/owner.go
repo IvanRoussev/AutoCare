@@ -62,13 +62,13 @@ func (server *Server) getOwnerByID(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, owner)
 }
 
-type listOwnerRequet struct {
+type listOwnerRequest struct {
 	PageID   int32 `form:"page_id" binding:"required,min=1"`
 	PageSize int32 `form:"page_size" binding:"required,min=5,max=10"`
 }
 
 func (server *Server) getlistOwners(ctx *gin.Context) {
-	var req listOwnerRequet
+	var req listOwnerRequest
 
 	err := ctx.ShouldBindQuery(&req)
 	if err != nil {
@@ -90,12 +90,12 @@ func (server *Server) getlistOwners(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, owners)
 }
 
-type deleteOwnerByIDrequest struct {
+type deleteOwnerByIDRequest struct {
 	ID int64 `uri:"id" binding:"required,min=1"`
 }
 
-func (server *Server) DeleteOwnerByID(ctx *gin.Context) {
-	var req deleteOwnerByIDrequest
+func (server *Server) deleteOwnerByID(ctx *gin.Context) {
+	var req deleteOwnerByIDRequest
 	err := ctx.ShouldBindUri(&req)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))

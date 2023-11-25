@@ -10,7 +10,7 @@ CREATE TABLE "owners"
 CREATE TABLE "cars"
 (
     "vin" VARCHAR(20) PRIMARY KEY,
-    "owner_id" bigint NOT NULL ,
+    "owner_id" int NOT NULL ,
     "make" VARCHAR(20) NOT NULL,
     "model" VARCHAR(30) NOT NULL,
     "year" int NOT NULL
