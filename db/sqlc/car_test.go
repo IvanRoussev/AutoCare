@@ -14,7 +14,7 @@ func createRandomCar(t *testing.T, owner Owner) Car {
 		OwnerID: owner.ID,
 		Make:    util.RandomString(),
 		Model:   util.RandomString(),
-		Year:    int32(util.RandomYear()),
+		Year:    util.RandomYear(),
 	}
 
 	car, err := testQueries.CreateCar(context.Background(), arg)

@@ -19,7 +19,7 @@ type CreateCarParams struct {
 	OwnerID int64  `json:"owner_id"`
 	Make    string `json:"make"`
 	Model   string `json:"model"`
-	Year    int32  `json:"year"`
+	Year    int64  `json:"year"`
 }
 
 func (q *Queries) CreateCar(ctx context.Context, arg CreateCarParams) (Car, error) {
@@ -235,7 +235,7 @@ RETURNING vin, owner_id, make, model, year
 
 type UpdateCarYearByVINParams struct {
 	Vin  string `json:"vin"`
-	Year int32  `json:"year"`
+	Year int64  `json:"year"`
 }
 
 func (q *Queries) UpdateCarYearByVIN(ctx context.Context, arg UpdateCarYearByVINParams) (Car, error) {

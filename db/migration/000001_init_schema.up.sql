@@ -13,7 +13,7 @@ CREATE TABLE "cars"
     "owner_id" bigint NOT NULL ,
     "make" VARCHAR(20) NOT NULL,
     "model" VARCHAR(30) NOT NULL,
-    "year" int NOT NULL
+    "year" bigint NOT NULL
 );
 
 
