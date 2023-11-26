@@ -24,10 +24,10 @@ func NewServer(store db.Store) *Server {
 	}
 
 	// Owners Routes
-	router.POST("/owners", server.createOwner)
-	router.GET("/owners/:id", server.getOwnerByID)
-	router.GET("/owners", server.getlistOwners)
-	router.DELETE("/owners/:id", server.deleteOwnerByID)
+	router.POST("/users", server.createUser)
+	router.GET("/users/:id", server.getUserByID)
+	router.GET("/users", server.getlistUsers)
+	router.DELETE("/users/:id", server.deleteUserByID)
 
 	// Cars Routes
 	router.POST("/cars", server.createCar)

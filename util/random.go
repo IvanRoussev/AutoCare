@@ -1,6 +1,7 @@
 package util
 
 import (
+	"fmt"
 	"math/rand"
 	"strings"
 	"time"
@@ -33,6 +34,6 @@ func RandomYear() int32 {
 	return RandomInt32(1950, 2023)
 }
 
-func RandomOwnerID(min int64, max int64) int64 {
-	return min + rand.Int63n(max-min+1)
+func RandomEmail() string {
+	return fmt.Sprintf("%s@email.com", RandomString())
 }

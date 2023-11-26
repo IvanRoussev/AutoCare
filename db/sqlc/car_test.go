@@ -8,13 +8,13 @@ import (
 	"testing"
 )
 
-func createRandomCar(t *testing.T, owner Owner) Car {
+func createRandomCar(t *testing.T, user User) Car {
 	arg := CreateCarParams{
-		Vin:     util.RandomString(),
-		OwnerID: owner.ID,
-		Make:    util.RandomString(),
-		Model:   util.RandomString(),
-		Year:    util.RandomYear(),
+		Vin:    util.RandomString(),
+		UserID: user.ID,
+		Make:   util.RandomString(),
+		Model:  util.RandomString(),
+		Year:   util.RandomYear(),
 	}
 
 	car, err := testQueries.CreateCar(context.Background(), arg)
@@ -24,14 +24,14 @@ func createRandomCar(t *testing.T, owner Owner) Car {
 	require.Equal(t, arg.Vin, car.Vin)
 	require.Equal(t, arg.Make, car.Make)
 	require.Equal(t, arg.Model, car.Model)
-	require.Equal(t, arg.OwnerID, car.OwnerID)
+	require.Equal(t, arg.UserID, car.UserID)
 	require.Equal(t, arg.Year, car.Year)
 	return car
 }
 
 func TestGetCar(t *testing.T) {
-	owner := CreateRandomOwner(t)
-	car := createRandomCar(t, owner)
+	user := createRandomUser(t)
+	car := createRandomCar(t, user)
 
 	carResult, err := testQueries.GetCarByVIN(context.Background(), car.Vin)
 	require.NoError(t, err)
@@ -40,12 +40,12 @@ func TestGetCar(t *testing.T) {
 	require.Equal(t, carResult.Vin, car.Vin)
 	require.Equal(t, carResult.Make, car.Make)
 	require.Equal(t, carResult.Model, car.Model)
-	require.Equal(t, carResult.OwnerID, car.OwnerID)
+	require.Equal(t, carResult.UserID, car.UserID)
 	require.Equal(t, carResult.Year, car.Year)
 }
 
 func TestUpdateCarMakeByVIN(t *testing.T) {
-	owner := CreateRandomOwner(t)
+	owner := createRandomUser(t)
 	car := createRandomCar(t, owner)
 
 	arg := UpdateCarMakeByVINParams{
@@ -60,12 +60,12 @@ func TestUpdateCarMakeByVIN(t *testing.T) {
 	require.Equal(t, carResult.Vin, car.Vin)
 	require.Equal(t, carResult.Make, arg.Make)
 	require.Equal(t, carResult.Model, car.Model)
-	require.Equal(t, carResult.OwnerID, car.OwnerID)
+	require.Equal(t, carResult.UserID, car.UserID)
 	require.Equal(t, carResult.Year, car.Year)
 }
 
 func TestUpdate_CarModel_ByVIN(t *testing.T) {
-	owner := CreateRandomOwner(t)
+	owner := createRandomUser(t)
 	car := createRandomCar(t, owner)
 
 	arg := UpdateCarModelByVINParams{
@@ -80,34 +80,34 @@ func TestUpdate_CarModel_ByVIN(t *testing.T) {
 	require.Equal(t, carResult.Vin, car.Vin)
 	require.Equal(t, carResult.Make, car.Make)
 	require.Equal(t, carResult.Model, arg.Model)
-	require.Equal(t, carResult.OwnerID, car.OwnerID)
+	require.Equal(t, carResult.UserID, car.UserID)
 	require.Equal(t, carResult.Year, car.Year)
 }
 
 func TestUpdate_CarOwner_ByVIN(t *testing.T) {
-	owner := CreateRandomOwner(t)
-	updatedOwner := CreateRandomOwner(t)
+	owner := createRandomUser(t)
+	updatedOwner := createRandomUser(t)
 	car := createRandomCar(t, owner)
 
-	arg := UpdateCarOwnerIdByVINParams{
-		Vin:     car.Vin,
-		OwnerID: updatedOwner.ID,
+	arg := UpdateCarUserIdByVINParams{
+		Vin:    car.Vin,
+		UserID: updatedOwner.ID,
 	}
 
-	carResult, err := testQueries.UpdateCarOwnerIdByVIN(context.Background(), arg)
+	carResult, err := testQueries.UpdateCarUserIdByVIN(context.Background(), arg)
 	require.NoError(t, err)
 	require.NotEmpty(t, car)
 
 	require.Equal(t, carResult.Vin, car.Vin)
 	require.Equal(t, carResult.Make, car.Make)
 	require.Equal(t, carResult.Model, car.Model)
-	require.Equal(t, carResult.OwnerID, arg.OwnerID)
+	require.Equal(t, carResult.UserID, arg.UserID)
 	require.Equal(t, carResult.Year, car.Year)
 }
 
 func TestUpdate_CarYear_ByVIN(t *testing.T) {
-	owner := CreateRandomOwner(t)
-	car := createRandomCar(t, owner)
+	user := createRandomUser(t)
+	car := createRandomCar(t, user)
 
 	arg := UpdateCarYearByVINParams{
 		Vin:  car.Vin,
@@ -121,15 +121,15 @@ func TestUpdate_CarYear_ByVIN(t *testing.T) {
 	require.Equal(t, carResult.Vin, car.Vin)
 	require.Equal(t, carResult.Make, car.Make)
 	require.Equal(t, carResult.Model, car.Model)
-	require.Equal(t, carResult.OwnerID, car.OwnerID)
+	require.Equal(t, carResult.UserID, car.UserID)
 	require.Equal(t, carResult.Year, arg.Year)
 }
 
 func TestListCars(t *testing.T) {
 
 	for i := 0; i < 10; i++ {
-		owner := CreateRandomOwner(t)
-		createRandomCar(t, owner)
+		user := createRandomUser(t)
+		createRandomCar(t, user)
 	}
 
 	arg := ListCarsParams{
@@ -147,7 +147,7 @@ func TestListCars(t *testing.T) {
 }
 
 func TestDeleteCarByID(t *testing.T) {
-	owner := CreateRandomOwner(t)
+	owner := createRandomUser(t)
 	car := createRandomCar(t, owner)
 
 	err := testQueries.DeleteCarByVIN(context.Background(), car.Vin)

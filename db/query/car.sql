@@ -1,5 +1,5 @@
 -- name: CreateCar :one
-INSERT INTO cars (vin, owner_id, make, model, year
+INSERT INTO cars (vin, user_id, make, model, year
 ) VALUES (
 $1, $2, $3, $4, $5
 ) RETURNING *;
@@ -14,15 +14,15 @@ ORDER BY vin
 LIMIT $1
 OFFSET $2;
 
--- name: ListCarsByOwnerID :many
+-- name: ListCarsByUserID :many
 SELECT * FROM cars
-WHERE owner_id = $1
+WHERE user_id = $1
 LIMIT $2
 OFFSET $3;
 
--- name: UpdateCarOwnerIdByVIN :one
+-- name: UpdateCarUserIdByVIN :one
 UPDATE cars
-SET owner_id = $2
+SET user_id = $2
 WHERE vin = $1
 RETURNING  *;
 

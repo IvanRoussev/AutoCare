@@ -3,29 +3,33 @@
 package db
 
 import (
+	"database/sql"
 	"time"
 )
 
 type Car struct {
-	Vin     string `json:"vin"`
-	OwnerID int64  `json:"owner_id"`
-	Make    string `json:"make"`
-	Model   string `json:"model"`
-	Year    int32  `json:"year"`
+	Vin    string `json:"vin"`
+	UserID int64  `json:"user_id"`
+	Make   string `json:"make"`
+	Model  string `json:"model"`
+	Year   int32  `json:"year"`
 }
 
 type Maintenance struct {
-	MaintenanceID   int32     `json:"maintenance_id"`
-	CarVin          string    `json:"car_vin"`
-	MaintenanceType string    `json:"maintenance_type"`
-	Mileage         int32     `json:"mileage"`
-	CreatedAt       time.Time `json:"created_at"`
+	MaintenanceID   sql.NullInt32 `json:"maintenance_id"`
+	CarVin          string        `json:"car_vin"`
+	MaintenanceType string        `json:"maintenance_type"`
+	Mileage         int32         `json:"mileage"`
+	CreatedAt       time.Time     `json:"created_at"`
 }
 
-type Owner struct {
-	ID        int64     `json:"id"`
-	FirstName string    `json:"first_name"`
-	LastName  string    `json:"last_name"`
-	Country   string    `json:"country"`
-	CreatedAt time.Time `json:"created_at"`
+type User struct {
+	ID               int64     `json:"id"`
+	Username         string    `json:"username"`
+	HashPassword     string    `json:"hash_password"`
+	FullName         string    `json:"full_name"`
+	Email            string    `json:"email"`
+	PasswordChangeAt time.Time `json:"password_change_at"`
+	Country          string    `json:"country"`
+	CreatedAt        time.Time `json:"created_at"`
 }

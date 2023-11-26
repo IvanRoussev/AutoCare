@@ -8,11 +8,11 @@ import (
 )
 
 type createCarRequest struct {
-	Vin     string `json:"vin"`
-	OwnerID int64  `json:"owner_id"`
-	Make    string `json:"make"`
-	Model   string `json:"model"`
-	Year    int32  `json:"year"`
+	Vin    string `json:"vin"`
+	UserID int64  `json:"owner_id"`
+	Make   string `json:"make"`
+	Model  string `json:"model"`
+	Year   int32  `json:"year"`
 }
 
 func (server *Server) createCar(ctx *gin.Context) {
@@ -25,11 +25,11 @@ func (server *Server) createCar(ctx *gin.Context) {
 	}
 
 	arg := db.CreateCarParams{
-		Vin:     req.Vin,
-		OwnerID: req.OwnerID,
-		Make:    req.Make,
-		Model:   req.Model,
-		Year:    req.Year,
+		Vin:    req.Vin,
+		UserID: req.UserID,
+		Make:   req.Make,
+		Model:  req.Model,
+		Year:   req.Year,
 	}
 
 	car, err := server.store.CreateCar(ctx, arg)
@@ -126,13 +126,13 @@ func (server *Server) getListCarsByOwnerID(ctx *gin.Context) {
 		return
 	}
 
-	arg := db.ListCarsByOwnerIDParams{
-		OwnerID: ownerIDReq.OwnerID,
-		Limit:   req.PageSize,
-		Offset:  (req.PageID - 1) * req.PageSize,
+	arg := db.ListCarsByUserIDParams{
+		UserID: ownerIDReq.OwnerID,
+		Limit:  req.PageSize,
+		Offset: (req.PageID - 1) * req.PageSize,
 	}
 
-	cars, err := server.store.ListCarsByOwnerID(ctx, arg)
+	cars, err := server.store.ListCarsByUserID(ctx, arg)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			ctx.JSON(http.StatusNotFound, errorResponse(err))

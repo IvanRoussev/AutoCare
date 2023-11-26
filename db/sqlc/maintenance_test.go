@@ -46,8 +46,8 @@ func createRandomMaintenance(t *testing.T, car Car) Maintenance {
 //}
 
 func TestGet_Maintenance_ByID(t *testing.T) {
-	owner := CreateRandomOwner(t)
-	car := createRandomCar(t, owner)
+	user := createRandomUser(t)
+	car := createRandomCar(t, user)
 	maintenance := createRandomMaintenance(t, car)
 
 	maintenanceResult, err := testQueries.GetMaintenanceByID(context.Background(), maintenance.MaintenanceID)
@@ -62,7 +62,7 @@ func TestGet_Maintenance_ByID(t *testing.T) {
 }
 
 func TestUpdate_MaintenanceMileage_ByVIN(t *testing.T) {
-	owner := CreateRandomOwner(t)
+	owner := createRandomUser(t)
 	car := createRandomCar(t, owner)
 	maintenance := createRandomMaintenance(t, car)
 
@@ -83,8 +83,8 @@ func TestUpdate_MaintenanceMileage_ByVIN(t *testing.T) {
 }
 
 func TestUpdate_MaintenanceType_ByVIN(t *testing.T) {
-	owner := CreateRandomOwner(t)
-	car := createRandomCar(t, owner)
+	user := createRandomUser(t)
+	car := createRandomCar(t, user)
 	maintenance := createRandomMaintenance(t, car)
 
 	arg := UpdateMaintenanceTypeByVINParams{
@@ -106,8 +106,8 @@ func TestUpdate_MaintenanceType_ByVIN(t *testing.T) {
 func TestListMaintenances(t *testing.T) {
 
 	for i := 0; i < 10; i++ {
-		owner := CreateRandomOwner(t)
-		car := createRandomCar(t, owner)
+		user := createRandomUser(t)
+		car := createRandomCar(t, user)
 		createRandomMaintenance(t, car)
 	}
 
@@ -140,8 +140,8 @@ func TestListMaintenances(t *testing.T) {
 //}
 
 func TestDelete_Maintenance_ByID(t *testing.T) {
-	owner := CreateRandomOwner(t)
-	car := createRandomCar(t, owner)
+	user := createRandomUser(t)
+	car := createRandomCar(t, user)
 	maintenance := createRandomMaintenance(t, car)
 
 	err := testQueries.DeleteMaintenanceByID(context.Background(), maintenance.MaintenanceID)

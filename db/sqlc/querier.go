@@ -4,33 +4,36 @@ package db
 
 import (
 	"context"
+	"database/sql"
 )
 
 type Querier interface {
 	CreateCar(ctx context.Context, arg CreateCarParams) (Car, error)
 	CreateMaintenance(ctx context.Context, arg CreateMaintenanceParams) (Maintenance, error)
-	CreateOwner(ctx context.Context, arg CreateOwnerParams) (Owner, error)
+	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
 	DeleteCarByVIN(ctx context.Context, vin string) error
-	DeleteMaintenanceByID(ctx context.Context, maintenanceID int32) error
+	DeleteMaintenanceByID(ctx context.Context, maintenanceID sql.NullInt32) error
 	DeleteMaintenanceByVIN(ctx context.Context, carVin string) error
-	DeleteOwnerByID(ctx context.Context, id int64) error
+	DeleteUserByID(ctx context.Context, id int64) error
+	DeleteUserByUsername(ctx context.Context, id int64) error
 	GetCarByVIN(ctx context.Context, vin string) (Car, error)
 	GetListMaintenancesByVIN(ctx context.Context, arg GetListMaintenancesByVINParams) ([]Maintenance, error)
-	GetMaintenanceByID(ctx context.Context, maintenanceID int32) (Maintenance, error)
-	GetOwnerByID(ctx context.Context, id int64) (Owner, error)
+	GetMaintenanceByID(ctx context.Context, maintenanceID sql.NullInt32) (Maintenance, error)
+	GetUserByID(ctx context.Context, id int64) (User, error)
+	GetUserByUsername(ctx context.Context, username string) (User, error)
 	ListCars(ctx context.Context, arg ListCarsParams) ([]Car, error)
-	ListCarsByOwnerID(ctx context.Context, arg ListCarsByOwnerIDParams) ([]Car, error)
+	ListCarsByUserID(ctx context.Context, arg ListCarsByUserIDParams) ([]Car, error)
 	ListMaintenances(ctx context.Context, arg ListMaintenancesParams) ([]Maintenance, error)
-	ListOwners(ctx context.Context, arg ListOwnersParams) ([]Owner, error)
+	ListUsers(ctx context.Context, arg ListUsersParams) ([]User, error)
 	UpdateCarMakeByVIN(ctx context.Context, arg UpdateCarMakeByVINParams) (Car, error)
 	UpdateCarModelByVIN(ctx context.Context, arg UpdateCarModelByVINParams) (Car, error)
-	UpdateCarOwnerIdByVIN(ctx context.Context, arg UpdateCarOwnerIdByVINParams) (Car, error)
+	UpdateCarUserIdByVIN(ctx context.Context, arg UpdateCarUserIdByVINParams) (Car, error)
 	UpdateCarYearByVIN(ctx context.Context, arg UpdateCarYearByVINParams) (Car, error)
 	UpdateMaintenanceMileageByVIN(ctx context.Context, arg UpdateMaintenanceMileageByVINParams) (Maintenance, error)
 	UpdateMaintenanceTypeByVIN(ctx context.Context, arg UpdateMaintenanceTypeByVINParams) (Maintenance, error)
-	UpdateOwnerCountryByID(ctx context.Context, arg UpdateOwnerCountryByIDParams) (Owner, error)
-	UpdateOwnerFirstNameByID(ctx context.Context, arg UpdateOwnerFirstNameByIDParams) (Owner, error)
-	UpdateOwnerLastNameByID(ctx context.Context, arg UpdateOwnerLastNameByIDParams) (Owner, error)
+	UpdateUserCountryByID(ctx context.Context, arg UpdateUserCountryByIDParams) (User, error)
+	UpdateUserFullNameByID(ctx context.Context, arg UpdateUserFullNameByIDParams) (User, error)
+	UpdateUsernameByID(ctx context.Context, arg UpdateUsernameByIDParams) (User, error)
 }
 
 var _ Querier = (*Queries)(nil)
