@@ -3,6 +3,8 @@ package api
 import (
 	db "github.com/IvanRoussev/autocare/db/sqlc"
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
+	"github.com/go-playground/validator/v10"
 )
 
 // Server servers HTTP requests for our Auto Care service
@@ -15,6 +17,11 @@ type Server struct {
 func NewServer(store db.Store) *Server {
 	server := &Server{store: store}
 	router := gin.Default()
+
+	v, ok := binding.Validator.Engine().(*validator.Validate)
+	if ok {
+		v.RegisterValidation("maintenance_type", validMaintenanceType)
+	}
 
 	// Owners Routes
 	router.POST("/owners", server.createOwner)

@@ -9,7 +9,7 @@ import (
 
 type createMaintenanceRequest struct {
 	CarVin          string `json:"car_vin"`
-	MaintenanceType string `json:"maintenance_type"`
+	MaintenanceType string `json:"maintenance_type" binding:"required,maintenance_type"`
 	Mileage         int32  `json:"mileage"`
 }
 
@@ -19,6 +19,7 @@ func (server *Server) createMaintenance(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
 	}
 
 	arg := db.CreateMaintenanceParams{
