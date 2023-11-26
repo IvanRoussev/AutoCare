@@ -13,7 +13,7 @@ func createRandomMaintenance(t *testing.T, car Car) Maintenance {
 	arg := CreateMaintenanceParams{
 		CarVin:          car.Vin,
 		MaintenanceType: util.RandomString(),
-		Mileage:         util.RandomInt32(0, 100000),
+		Mileage:         util.RandomInt32(0, 100),
 	}
 
 	maintenance, err := testQueries.CreateMaintenance(context.Background(), arg)

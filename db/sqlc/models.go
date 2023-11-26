@@ -11,7 +11,7 @@ type Car struct {
 	OwnerID int64  `json:"owner_id"`
 	Make    string `json:"make"`
 	Model   string `json:"model"`
-	Year    int64  `json:"year"`
+	Year    int32  `json:"year"`
 }
 
 type Maintenance struct {

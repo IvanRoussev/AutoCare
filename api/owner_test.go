@@ -69,7 +69,7 @@ func TestGetOwnerAPI(t *testing.T) {
 
 func randomOwner() db.Owner {
 	return db.Owner{
-		ID:        util.RandomInt64(0, 1000),
+		ID:        util.RandomOwnerID(0, 1000),
 		FirstName: util.RandomString(),
 		LastName:  util.RandomString(),
 		Country:   util.RandomString(),

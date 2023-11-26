@@ -13,8 +13,8 @@ func init() {
 }
 
 // Generates a random integer between min and max
-func RandomInt64(min, max int64) int64 {
-	return min + rand.Int63n(max-min+1)
+func RandomInt32(min int32, max int32) int32 {
+	return min + rand.Int31n(max-min+1)
 }
 
 func RandomString() string {
@@ -29,6 +29,10 @@ func RandomString() string {
 	return sb.String()
 }
 
-func RandomYear() int64 {
-	return RandomInt64(1950, 2023)
+func RandomYear() int32 {
+	return RandomInt32(1950, 2023)
+}
+
+func RandomOwnerID(min int64, max int64) int64 {
+	return min + rand.Int63n(max-min+1)
 }
