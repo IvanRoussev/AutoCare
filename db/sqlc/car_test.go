@@ -10,10 +10,10 @@ import (
 
 func createRandomCar(t *testing.T, user User) Car {
 	arg := CreateCarParams{
-		Vin:    util.RandomString(),
+		Vin:    util.RandomString(6),
 		UserID: user.ID,
-		Make:   util.RandomString(),
-		Model:  util.RandomString(),
+		Make:   util.RandomString(6),
+		Model:  util.RandomString(6),
 		Year:   util.RandomYear(),
 	}
 
@@ -50,7 +50,7 @@ func TestUpdateCarMakeByVIN(t *testing.T) {
 
 	arg := UpdateCarMakeByVINParams{
 		Vin:  car.Vin,
-		Make: util.RandomString(),
+		Make: util.RandomString(6),
 	}
 
 	carResult, err := testQueries.UpdateCarMakeByVIN(context.Background(), arg)
@@ -70,7 +70,7 @@ func TestUpdate_CarModel_ByVIN(t *testing.T) {
 
 	arg := UpdateCarModelByVINParams{
 		Vin:   car.Vin,
-		Model: util.RandomString(),
+		Model: util.RandomString(6),
 	}
 
 	carResult, err := testQueries.UpdateCarModelByVIN(context.Background(), arg)

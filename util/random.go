@@ -18,11 +18,11 @@ func RandomInt32(min int32, max int32) int32 {
 	return min + rand.Int31n(max-min+1)
 }
 
-func RandomString() string {
+func RandomString(n int) string {
 	var sb strings.Builder
 	k := len(alphabet)
 
-	for i := 0; i < 6; i++ {
+	for i := 0; i < n; i++ {
 		c := alphabet[rand.Intn(k)]
 		sb.WriteByte(c)
 	}
@@ -35,5 +35,5 @@ func RandomYear() int32 {
 }
 
 func RandomEmail() string {
-	return fmt.Sprintf("%s@email.com", RandomString())
+	return fmt.Sprintf("%s@email.com", RandomString(6))
 }

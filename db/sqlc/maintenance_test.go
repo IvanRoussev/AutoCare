@@ -12,7 +12,7 @@ import (
 func createRandomMaintenance(t *testing.T, car Car) Maintenance {
 	arg := CreateMaintenanceParams{
 		CarVin:          car.Vin,
-		MaintenanceType: util.RandomString(),
+		MaintenanceType: util.RandomString(6),
 		Mileage:         util.RandomInt32(0, 100),
 	}
 
@@ -89,7 +89,7 @@ func TestUpdate_MaintenanceType_ByVIN(t *testing.T) {
 
 	arg := UpdateMaintenanceTypeByVINParams{
 		CarVin:          car.Vin,
-		MaintenanceType: util.RandomString(),
+		MaintenanceType: util.RandomString(6),
 	}
 
 	maintenanceResult, err := testQueries.UpdateMaintenanceTypeByVIN(context.Background(), arg)
