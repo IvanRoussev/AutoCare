@@ -29,31 +29,13 @@ func NewServer(config util.Config, store db.Store) (*Server, error) {
 		store:      store,
 		tokenMaker: tokenMaker,
 	}
-	router := gin.Default()
 
 	v, ok := binding.Validator.Engine().(*validator.Validate)
 	if ok {
 		v.RegisterValidation("maintenance_type", validMaintenanceType)
 	}
+	server.setupRouter()
 
-	// Owners Routes
-	router.POST("/users", server.createUser)
-	router.GET("/users/:id", server.getUserByID)
-	router.GET("/users", server.getlistUsers)
-	router.DELETE("/users/:id", server.deleteUserByID)
-
-	// Cars Routes
-	router.POST("/cars", server.createCar)
-	router.GET("/cars/vin/:vin", server.getCarByVIN)
-	router.GET("/cars", server.getListCars)
-	router.GET("/cars/owner/:owner_id", server.getListCarsByOwnerID)
-	router.DELETE("/cars/:vin", server.deleteCarByVIN)
-
-	// Maintenance Routes
-	router.POST("/maintenances", server.createMaintenance)
-	router.GET("/maintenances/:car_vin", server.getListMaintenanceByVIN)
-
-	server.router = router
 	return server, nil
 }
 
