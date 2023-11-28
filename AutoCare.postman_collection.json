@@ -1,0 +1,400 @@
+{
+	"info": {
+		"_postman_id": "f87289d4-bf49-4b27-9820-d752ec3966dc",
+		"name": "Auto Care App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25318275"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Create Users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "v2.local.B-aXqXzxY8JuuAchkS3CRI8y7nGN2a3f5hMnCHRkJrh1F7K_OzwXIFFAsZlT0YKX1p_5VBWTC8RgfCFX2rLwEzRY3pyH6-I7ma5631PWWTa1JO_5b_6_L9QzI99oBfcTcKNYcDl9waEFfp0ajeTmeyjR1VAHRbrCKnDcfr3jHsgOsZchvZ_LfYC_7MVhut4mW14aV19xnFnhl1lxR536M8lkJ1Vf-Jm50dxJjDzWYSD44w07732ULZY8JU28z7cT9OMEdtkSawUq-26zuHvbL9gYtT9mZQ.bnVsbA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"full_name\": \"Ivan roussev\",\n \"password\": \"ivanroussev\",\n \"username\": \"ivanr\",\n \"email\": \"hello@gmail.com\",\n \"country\": \"canada\"\n}\n\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User By ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/users/100",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"100"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users?page_id=2&page_size=10",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "page_id",
+									"value": "2"
+								},
+								{
+									"key": "page_size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User By ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/100",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"100"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"asdadasdadsa\",\n    \"password\": \"asdadsadasda!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cars",
+			"item": [
+				{
+					"name": "Create Car",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "v2.local.8Z7-qw43Ac8k23EtF8Z1_KAtRHJDuqnnlOB74UgILQgkJVeT2qKvDBd5P969HbJ25RVr2bUbaoDqsxwBJSH0P_kQh45O9D9r-E9PD8hRpdEi-K1c8NIED0Ijw_kHbHUeBV4srwetRyGdl3Bu2fxqJkua-i2g7tu2glrtltP5de0MQZYSzb8ep30suajtcJAFyFaZ7ICZLHpGzVRj2LWoDfZl9hzDQkeFEASP58CSbHFDA9f6ks7jYGf-Z-IU0w3PLBvuOeKVSlM51kWDOFs02EzDBQ.bnVsbA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"vin\": \"asdsadas\",\n    \"username\": \"ivanr\",\n    \"make\": \"test\",\n    \"model\": \"test\",\n    \"year\": 2009\n}\n\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/cars",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Car By VIN",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "v2.local.8Z7-qw43Ac8k23EtF8Z1_KAtRHJDuqnnlOB74UgILQgkJVeT2qKvDBd5P969HbJ25RVr2bUbaoDqsxwBJSH0P_kQh45O9D9r-E9PD8hRpdEi-K1c8NIED0Ijw_kHbHUeBV4srwetRyGdl3Bu2fxqJkua-i2g7tu2glrtltP5de0MQZYSzb8ep30suajtcJAFyFaZ7ICZLHpGzVRj2LWoDfZl9hzDQkeFEASP58CSbHFDA9f6ks7jYGf-Z-IU0w3PLBvuOeKVSlM51kWDOFs02EzDBQ.bnVsbA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/cars/vin/asdadadasd",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cars",
+								"vin",
+								"asdadadasd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Car By Vin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "v2.local.8Z7-qw43Ac8k23EtF8Z1_KAtRHJDuqnnlOB74UgILQgkJVeT2qKvDBd5P969HbJ25RVr2bUbaoDqsxwBJSH0P_kQh45O9D9r-E9PD8hRpdEi-K1c8NIED0Ijw_kHbHUeBV4srwetRyGdl3Bu2fxqJkua-i2g7tu2glrtltP5de0MQZYSzb8ep30suajtcJAFyFaZ7ICZLHpGzVRj2LWoDfZl9hzDQkeFEASP58CSbHFDA9f6ks7jYGf-Z-IU0w3PLBvuOeKVSlM51kWDOFs02EzDBQ.bnVsbA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/cars/vin/qqqqqq",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cars",
+								"vin",
+								"qqqqqq"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Cars",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/cars?page_id=1&page_size=5",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cars"
+							],
+							"query": [
+								{
+									"key": "page_id",
+									"value": "1"
+								},
+								{
+									"key": "page_size",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Cars by Owner ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "v2.local.QxjRbXI2uPbsfpcW6bpIB-7gulXZFoeDKSqOwVywrSjqijDvfAeOURCG0DxC9kPuSh5okSpA7Rw-jWrgfwVRd4mXca3_7nd9lj6qzDeBCuni39he9EX1CkD-o1olUUlYdzCIQkxEaTOBbt1yCsYTsvhKi_5Q0kSNIsQzxwei7mxm9KmNLdBXP7X0gE9qhoVKj-gCYTn7DQNQ4a9x-zXV6hSsbMwG0yQ3wWIJIJHuRr5wS8P5iAmdy6K3rrvfx_oca599I7FbvqKH8OIofimDGNdNpa7DoQ.bnVsbA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/cars/users/jmarriot?page_id=1&page_size=5",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cars",
+								"users",
+								"jmarriot"
+							],
+							"query": [
+								{
+									"key": "page_id",
+									"value": "1"
+								},
+								{
+									"key": "page_size",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Maintenance",
+			"item": [
+				{
+					"name": "Create Maintenance",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "v2.local.Ffar5z9CYx0W5mW2W45Klxl20iiUruNEBiYA63PYs3ccZz2iyV9RC7i-klSIpdB5hFcsNS_wgXYxO9pzb59wcfU5VS8mYBFH3ZaBrdUf6teCEFa9NPxsyZRBkajKgU9xFa31Tns4mMMX6ndluavyz4L-4_0J4HyJiaEodxQ0ffcqvOqevOKa6LwzRGqs1OK7Tl-b6EA4JmXVhodSCufPnabhx75Zc0rzZS7AURVuOQOW_ayV8LP43vJiHWHySqsSL7xifRwJ33A1hGXpPAPGexVEOQ.bnVsbA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"car_vin\": \"dsadasdasad\",\n    \"maintenance_type\": \"oil change\",\n    \"mileage\": 100000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/maintenances",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"maintenances"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Maintenances By VIN",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/maintenances/aaaaa?page_id=1&page_size=5",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"maintenances",
+								"aaaaa"
+							],
+							"query": [
+								{
+									"key": "page_id",
+									"value": "1"
+								},
+								{
+									"key": "page_size",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

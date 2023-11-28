@@ -24,7 +24,7 @@ func (server *Server) setupRouter() {
 	authRoutes.GET("/cars/vin/:vin", server.getCarByVIN)
 	authRoutes.GET("/cars", server.getListCars)
 	authRoutes.GET("/cars/users/:username", server.getListCarsByUsername)
-	authRoutes.DELETE("/cars/:vin", server.deleteCarByVIN)
+	authRoutes.DELETE("/cars/vin/:vin", server.deleteCarByVIN)
 
 	// Maintenance Routes
 	authRoutes.POST("/maintenances", server.createMaintenance)
