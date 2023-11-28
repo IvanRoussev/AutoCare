@@ -175,12 +175,12 @@ func (server *Server) deleteCarByVIN(ctx *gin.Context) {
 	authPayload := ctx.MustGet(authorizationPayloadKey).(*token.Payload)
 
 	if car.Username != authPayload.Username {
-		errMessage := fmt.Sprintf("can't delete car VIN: %s car does not belong to authenticated user", car.Vin)
+		errMessage := fmt.Sprintf("can't delete car VIN: %s | Car does not belong to authenticated user: %s", car.Vin, authPayload.Username)
 		err := errors.New(errMessage)
 		ctx.JSON(http.StatusForbidden, errorResponse(err))
 		return
 	}
-	
+
 	err = server.store.DeleteCarByVIN(ctx, req.Vin)
 	if err != nil {
 		if err == sql.ErrNoRows {
