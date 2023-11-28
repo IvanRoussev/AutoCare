@@ -2,7 +2,7 @@
 AutoCare, An app to track your cars maintenance records. Keep all of your cars records in line, organized and never miss a maintenance again.
 
 ## DB Design
-![AutoCare (1).svg](..%2F..%2F..%2F..%2FDownloads%2FAutoCare%20%281%29.svg)
+<img src="db_design.svg">
 
 ## API Reference
 
