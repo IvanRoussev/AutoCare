@@ -1,5 +1,9 @@
 # AutoCare
 AutoCare, An app to track your cars maintenance records. Keep all of your cars records in line, organized and never miss a maintenance again.
+
+## DB Design
+![AutoCare (1).svg](..%2F..%2F..%2F..%2FDownloads%2FAutoCare%20%281%29.svg)
+
 ## API Reference
 
 ### Create a User
@@ -162,3 +166,7 @@ Get **all** maintenance for given car by vin
 | :-------- | :-------------------------------- | :---|
 | `page_id`      | the first page you want to start to view at| **Yes** |
 | `page_size`      | the number of cars per page you want to see| **Yes** |
+
+
+
+![AutoCare (1).svg](..%2F..%2F..%2F..%2FDownloads%2FAutoCare%20%281%29.svg)
