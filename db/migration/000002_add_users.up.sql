@@ -11,4 +11,4 @@ CREATE TABLE "users"
 );
 
 
-ALTER TABLE "cars" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
+ALTER TABLE "cars" ADD FOREIGN KEY ("username") REFERENCES "users" ("username");

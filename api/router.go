@@ -5,24 +5,29 @@ import "github.com/gin-gonic/gin"
 func (server *Server) setupRouter() {
 	router := gin.Default()
 
-	// User Login
+	// User Login | Anyone can access this route no auth needed
 	router.POST("/users/login", server.loginUser)
 
-	// Owners Routes
+	// Create User
 	router.POST("/users", server.createUser)
-	router.GET("/users/:id", server.getUserByID)
-	router.GET("/users", server.getlistUsers)
-	router.DELETE("/users/:id", server.deleteUserByID)
+
+	// Auth Middleware protected routes below
+	authRoutes := router.Group("/").Use(authMiddleware(server.tokenMaker))
+
+	// Owners Routes
+	authRoutes.GET("/users/:id", server.getUserByID)
+	authRoutes.GET("/users", server.getlistUsers)
+	authRoutes.DELETE("/users/:id", server.deleteUserByID)
 
 	// Cars Routes
-	router.POST("/cars", server.createCar)
-	router.GET("/cars/vin/:vin", server.getCarByVIN)
-	router.GET("/cars", server.getListCars)
-	router.GET("/cars/owner/:owner_id", server.getListCarsByOwnerID)
-	router.DELETE("/cars/:vin", server.deleteCarByVIN)
+	authRoutes.POST("/cars", server.createCar)
+	authRoutes.GET("/cars/vin/:vin", server.getCarByVIN)
+	authRoutes.GET("/cars", server.getListCars)
+	authRoutes.GET("/cars/users/:username", server.getListCarsByUsername)
+	authRoutes.DELETE("/cars/:vin", server.deleteCarByVIN)
 
 	// Maintenance Routes
-	router.POST("/maintenances", server.createMaintenance)
-	router.GET("/maintenances/:car_vin", server.getListMaintenanceByVIN)
+	authRoutes.POST("/maintenances", server.createMaintenance)
+	authRoutes.GET("/maintenances/:car_vin", server.getListMaintenanceByVIN)
 	server.router = router
 }

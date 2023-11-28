@@ -8,11 +8,11 @@ import (
 )
 
 type Car struct {
-	Vin    string `json:"vin"`
-	UserID int64  `json:"user_id"`
-	Make   string `json:"make"`
-	Model  string `json:"model"`
-	Year   int32  `json:"year"`
+	Vin      string `json:"vin"`
+	Username string `json:"username"`
+	Make     string `json:"make"`
+	Model    string `json:"model"`
+	Year     int32  `json:"year"`
 }
 
 type Maintenance struct {

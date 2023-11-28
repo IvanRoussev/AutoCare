@@ -2,7 +2,9 @@ package api
 
 import (
 	"database/sql"
+	"errors"
 	db "github.com/IvanRoussev/autocare/db/sqlc"
+	"github.com/IvanRoussev/autocare/token"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -26,6 +28,15 @@ func (server *Server) createMaintenance(ctx *gin.Context) {
 		CarVin:          req.CarVin,
 		MaintenanceType: req.MaintenanceType,
 		Mileage:         req.Mileage,
+	}
+	car, err := server.store.GetCarByVIN(ctx, req.CarVin)
+
+	authPayload := ctx.MustGet(authorizationPayloadKey).(*token.Payload)
+
+	if car.Username != authPayload.Username {
+		err := errors.New("car does not belong to authenticated user")
+		ctx.JSON(http.StatusForbidden, errorResponse(err))
+		return
 	}
 
 	maintenance, err := server.store.CreateMaintenance(ctx, arg)

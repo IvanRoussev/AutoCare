@@ -1,7 +1,7 @@
 CREATE TABLE "cars"
 (
   "vin" VARCHAR(20) PRIMARY KEY,
-  "user_id" bigint NOT NULL,
+  "username" VARCHAR(30) NOT NULL,
   "make" VARCHAR(20) NOT NULL,
   "model" VARCHAR(30) NOT NULL,
   "year" int NOT NULL
