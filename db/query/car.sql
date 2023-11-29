@@ -8,11 +8,6 @@ $1, $2, $3, $4, $5
 SELECT * FROM cars
 WHERE vin = $1 LIMIT 1;
 
--- name: ListCars :many
-SELECT * FROM cars
-ORDER BY vin
-LIMIT $1
-OFFSET $2;
 
 -- name: ListCarsByUsername :many
 SELECT * FROM cars

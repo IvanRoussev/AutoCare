@@ -14,26 +14,17 @@ type Querier interface {
 	DeleteCarByVIN(ctx context.Context, vin string) error
 	DeleteMaintenanceByID(ctx context.Context, maintenanceID sql.NullInt32) error
 	DeleteMaintenanceByVIN(ctx context.Context, carVin string) error
-	DeleteUserByID(ctx context.Context, id int64) error
-	DeleteUserByUsername(ctx context.Context, id int64) error
+	DeleteUserByUsername(ctx context.Context, username string) error
 	GetCarByVIN(ctx context.Context, vin string) (Car, error)
 	GetListMaintenancesByVIN(ctx context.Context, arg GetListMaintenancesByVINParams) ([]Maintenance, error)
 	GetMaintenanceByID(ctx context.Context, maintenanceID sql.NullInt32) (Maintenance, error)
 	GetUserByID(ctx context.Context, id int64) (User, error)
 	GetUserByUsername(ctx context.Context, username string) (User, error)
-	ListCars(ctx context.Context, arg ListCarsParams) ([]Car, error)
 	ListCarsByUsername(ctx context.Context, arg ListCarsByUsernameParams) ([]Car, error)
-	ListMaintenances(ctx context.Context, arg ListMaintenancesParams) ([]Maintenance, error)
-	ListUsers(ctx context.Context, arg ListUsersParams) ([]User, error)
 	UpdateCarMakeByVIN(ctx context.Context, arg UpdateCarMakeByVINParams) (Car, error)
 	UpdateCarModelByVIN(ctx context.Context, arg UpdateCarModelByVINParams) (Car, error)
 	UpdateCarUsernameByVIN(ctx context.Context, arg UpdateCarUsernameByVINParams) (Car, error)
 	UpdateCarYearByVIN(ctx context.Context, arg UpdateCarYearByVINParams) (Car, error)
-	UpdateMaintenanceMileageByVIN(ctx context.Context, arg UpdateMaintenanceMileageByVINParams) (Maintenance, error)
-	UpdateMaintenanceTypeByVIN(ctx context.Context, arg UpdateMaintenanceTypeByVINParams) (Maintenance, error)
-	UpdateUserCountryByID(ctx context.Context, arg UpdateUserCountryByIDParams) (User, error)
-	UpdateUserFullNameByID(ctx context.Context, arg UpdateUserFullNameByIDParams) (User, error)
-	UpdateUsernameByID(ctx context.Context, arg UpdateUsernameByIDParams) (User, error)
 }
 
 var _ Querier = (*Queries)(nil)

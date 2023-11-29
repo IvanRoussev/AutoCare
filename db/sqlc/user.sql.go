@@ -45,21 +45,12 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, e
 	return i, err
 }
 
-const deleteUserByID = `-- name: DeleteUserByID :exec
-DELETE FROM users WHERE id = $1
-`
-
-func (q *Queries) DeleteUserByID(ctx context.Context, id int64) error {
-	_, err := q.db.ExecContext(ctx, deleteUserByID, id)
-	return err
-}
-
 const deleteUserByUsername = `-- name: DeleteUserByUsername :exec
-DELETE FROM users WHERE id = $1
+DELETE FROM users WHERE username = $1
 `
 
-func (q *Queries) DeleteUserByUsername(ctx context.Context, id int64) error {
-	_, err := q.db.ExecContext(ctx, deleteUserByUsername, id)
+func (q *Queries) DeleteUserByUsername(ctx context.Context, username string) error {
+	_, err := q.db.ExecContext(ctx, deleteUserByUsername, username)
 	return err
 }
 
@@ -93,134 +84,6 @@ LIMIT 1
 
 func (q *Queries) GetUserByUsername(ctx context.Context, username string) (User, error) {
 	row := q.db.QueryRowContext(ctx, getUserByUsername, username)
-	var i User
-	err := row.Scan(
-		&i.ID,
-		&i.Username,
-		&i.HashPassword,
-		&i.FullName,
-		&i.Email,
-		&i.PasswordChangeAt,
-		&i.Country,
-		&i.CreatedAt,
-	)
-	return i, err
-}
-
-const listUsers = `-- name: ListUsers :many
-SELECT id, username, hash_password, full_name, email, password_change_at, country, created_at FROM users
-ORDER BY id
-LIMIT $1
-OFFSET $2
-`
-
-type ListUsersParams struct {
-	Limit  int32 `json:"limit"`
-	Offset int32 `json:"offset"`
-}
-
-func (q *Queries) ListUsers(ctx context.Context, arg ListUsersParams) ([]User, error) {
-	rows, err := q.db.QueryContext(ctx, listUsers, arg.Limit, arg.Offset)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-	items := []User{}
-	for rows.Next() {
-		var i User
-		if err := rows.Scan(
-			&i.ID,
-			&i.Username,
-			&i.HashPassword,
-			&i.FullName,
-			&i.Email,
-			&i.PasswordChangeAt,
-			&i.Country,
-			&i.CreatedAt,
-		); err != nil {
-			return nil, err
-		}
-		items = append(items, i)
-	}
-	if err := rows.Close(); err != nil {
-		return nil, err
-	}
-	if err := rows.Err(); err != nil {
-		return nil, err
-	}
-	return items, nil
-}
-
-const updateUserCountryByID = `-- name: UpdateUserCountryByID :one
-UPDATE users
-SET country = $2
-WHERE id = $1
-RETURNING id, username, hash_password, full_name, email, password_change_at, country, created_at
-`
-
-type UpdateUserCountryByIDParams struct {
-	ID      int64  `json:"id"`
-	Country string `json:"country"`
-}
-
-func (q *Queries) UpdateUserCountryByID(ctx context.Context, arg UpdateUserCountryByIDParams) (User, error) {
-	row := q.db.QueryRowContext(ctx, updateUserCountryByID, arg.ID, arg.Country)
-	var i User
-	err := row.Scan(
-		&i.ID,
-		&i.Username,
-		&i.HashPassword,
-		&i.FullName,
-		&i.Email,
-		&i.PasswordChangeAt,
-		&i.Country,
-		&i.CreatedAt,
-	)
-	return i, err
-}
-
-const updateUserFullNameByID = `-- name: UpdateUserFullNameByID :one
-UPDATE users
-SET full_name = $2
-WHERE id = $1
-RETURNING  id, username, hash_password, full_name, email, password_change_at, country, created_at
-`
-
-type UpdateUserFullNameByIDParams struct {
-	ID       int64  `json:"id"`
-	FullName string `json:"full_name"`
-}
-
-func (q *Queries) UpdateUserFullNameByID(ctx context.Context, arg UpdateUserFullNameByIDParams) (User, error) {
-	row := q.db.QueryRowContext(ctx, updateUserFullNameByID, arg.ID, arg.FullName)
-	var i User
-	err := row.Scan(
-		&i.ID,
-		&i.Username,
-		&i.HashPassword,
-		&i.FullName,
-		&i.Email,
-		&i.PasswordChangeAt,
-		&i.Country,
-		&i.CreatedAt,
-	)
-	return i, err
-}
-
-const updateUsernameByID = `-- name: UpdateUsernameByID :one
-UPDATE users
-SET username = $2
-WHERE id = $1
-RETURNING id, username, hash_password, full_name, email, password_change_at, country, created_at
-`
-
-type UpdateUsernameByIDParams struct {
-	ID       int64  `json:"id"`
-	Username string `json:"username"`
-}
-
-func (q *Queries) UpdateUsernameByID(ctx context.Context, arg UpdateUsernameByIDParams) (User, error) {
-	row := q.db.QueryRowContext(ctx, updateUsernameByID, arg.ID, arg.Username)
 	var i User
 	err := row.Scan(
 		&i.ID,

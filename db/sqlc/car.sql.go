@@ -68,47 +68,6 @@ func (q *Queries) GetCarByVIN(ctx context.Context, vin string) (Car, error) {
 	return i, err
 }
 
-const listCars = `-- name: ListCars :many
-SELECT vin, username, make, model, year FROM cars
-ORDER BY vin
-LIMIT $1
-OFFSET $2
-`
-
-type ListCarsParams struct {
-	Limit  int32 `json:"limit"`
-	Offset int32 `json:"offset"`
-}
-
-func (q *Queries) ListCars(ctx context.Context, arg ListCarsParams) ([]Car, error) {
-	rows, err := q.db.QueryContext(ctx, listCars, arg.Limit, arg.Offset)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-	items := []Car{}
-	for rows.Next() {
-		var i Car
-		if err := rows.Scan(
-			&i.Vin,
-			&i.Username,
-			&i.Make,
-			&i.Model,
-			&i.Year,
-		); err != nil {
-			return nil, err
-		}
-		items = append(items, i)
-	}
-	if err := rows.Close(); err != nil {
-		return nil, err
-	}
-	if err := rows.Err(); err != nil {
-		return nil, err
-	}
-	return items, nil
-}
-
 const listCarsByUsername = `-- name: ListCarsByUsername :many
 SELECT vin, username, make, model, year FROM cars
 WHERE username = $1

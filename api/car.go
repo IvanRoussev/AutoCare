@@ -77,40 +77,7 @@ func (server *Server) getCarByVIN(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, car)
 }
 
-type listCarsRequest struct {
-	PageID   int32 `form:"page_id" binding:"required,min=1"`
-	PageSize int32 `form:"page_size" binding:"required,min=5,max=10"`
-}
-
-func (server *Server) getListCars(ctx *gin.Context) {
-	var req listCarsRequest
-
-	err := ctx.ShouldBindQuery(&req)
-	if err != nil {
-		ctx.JSON(http.StatusBadRequest, errorResponse(err))
-		return
-	}
-
-	arg := db.ListCarsParams{
-		Limit:  req.PageSize,
-		Offset: req.PageID,
-	}
-
-	cars, err := server.store.ListCars(ctx, arg)
-	if err != nil {
-		if err == sql.ErrNoRows {
-			ctx.JSON(http.StatusNotFound, errorResponse(err))
-			return
-		}
-		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
-		return
-	}
-
-	ctx.JSON(http.StatusOK, cars)
-
-}
-
-type getListCarsByOwnerIDRequest struct {
+type getListCarsByUsernameRequest struct {
 	PageID   int32 `form:"page_id" binding:"required,min=1"`
 	PageSize int32 `form:"page_size" binding:"required,min=1,max=10"`
 }
@@ -120,7 +87,7 @@ type listCarsByUsernameRequest struct {
 }
 
 func (server *Server) getListCarsByUsername(ctx *gin.Context) {
-	var req getListCarsByOwnerIDRequest
+	var req getListCarsByUsernameRequest
 	var ownerIDReq listCarsByUsernameRequest
 
 	err := ctx.ShouldBindQuery(&req)

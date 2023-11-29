@@ -123,6 +123,34 @@ func (mr *MockStoreMockRecorder) DeleteMaintenanceByVIN(arg0, arg1 interface{}) 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteMaintenanceByVIN", reflect.TypeOf((*MockStore)(nil).DeleteMaintenanceByVIN), arg0, arg1)
 }
 
+// DeleteUserByID mocks base method.
+func (m *MockStore) DeleteUserByID(arg0 context.Context, arg1 int64) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteUserByID", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DeleteUserByID indicates an expected call of DeleteUserByID.
+func (mr *MockStoreMockRecorder) DeleteUserByID(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteUserByID", reflect.TypeOf((*MockStore)(nil).DeleteUserByID), arg0, arg1)
+}
+
+// DeleteUserByUsername mocks base method.
+func (m *MockStore) DeleteUserByUsername(arg0 context.Context, arg1 string) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteUserByUsername", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DeleteUserByUsername indicates an expected call of DeleteUserByUsername.
+func (mr *MockStoreMockRecorder) DeleteUserByUsername(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteUserByUsername", reflect.TypeOf((*MockStore)(nil).DeleteUserByUsername), arg0, arg1)
+}
+
 // GetCarByVIN mocks base method.
 func (m *MockStore) GetCarByVIN(arg0 context.Context, arg1 string) (db.Car, error) {
 	m.ctrl.T.Helper()
@@ -213,19 +241,19 @@ func (mr *MockStoreMockRecorder) ListCars(arg0, arg1 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListCars", reflect.TypeOf((*MockStore)(nil).ListCars), arg0, arg1)
 }
 
-// ListCarsByUserID mocks base method.
-func (m *MockStore) ListCarsByUserID(arg0 context.Context, arg1 db.ListCarsByUserIDParams) ([]db.Car, error) {
+// ListCarsByUsername mocks base method.
+func (m *MockStore) ListCarsByUsername(arg0 context.Context, arg1 db.ListCarsByUsernameParams) ([]db.Car, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ListCarsByUserID", arg0, arg1)
+	ret := m.ctrl.Call(m, "ListCarsByUsername", arg0, arg1)
 	ret0, _ := ret[0].([]db.Car)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// ListCarsByUserID indicates an expected call of ListCarsByUserID.
-func (mr *MockStoreMockRecorder) ListCarsByUserID(arg0, arg1 interface{}) *gomock.Call {
+// ListCarsByUsername indicates an expected call of ListCarsByUsername.
+func (mr *MockStoreMockRecorder) ListCarsByUsername(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListCarsByUserID", reflect.TypeOf((*MockStore)(nil).ListCarsByUserID), arg0, arg1)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListCarsByUsername", reflect.TypeOf((*MockStore)(nil).ListCarsByUsername), arg0, arg1)
 }
 
 // ListMaintenances mocks base method.
@@ -273,19 +301,19 @@ func (mr *MockStoreMockRecorder) UpdateCarModelByVIN(arg0, arg1 interface{}) *go
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateCarModelByVIN", reflect.TypeOf((*MockStore)(nil).UpdateCarModelByVIN), arg0, arg1)
 }
 
-// UpdateCarUserIdByVIN mocks base method.
-func (m *MockStore) UpdateCarUserIdByVIN(arg0 context.Context, arg1 db.UpdateCarUserIdByVINParams) (db.Car, error) {
+// UpdateCarUsernameByVIN mocks base method.
+func (m *MockStore) UpdateCarUsernameByVIN(arg0 context.Context, arg1 db.UpdateCarUsernameByVINParams) (db.Car, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "UpdateCarUserIdByVIN", arg0, arg1)
+	ret := m.ctrl.Call(m, "UpdateCarUsernameByVIN", arg0, arg1)
 	ret0, _ := ret[0].(db.Car)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// UpdateCarUserIdByVIN indicates an expected call of UpdateCarUserIdByVIN.
-func (mr *MockStoreMockRecorder) UpdateCarUserIdByVIN(arg0, arg1 interface{}) *gomock.Call {
+// UpdateCarUsernameByVIN indicates an expected call of UpdateCarUsernameByVIN.
+func (mr *MockStoreMockRecorder) UpdateCarUsernameByVIN(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateCarUserIdByVIN", reflect.TypeOf((*MockStore)(nil).UpdateCarUserIdByVIN), arg0, arg1)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateCarUsernameByVIN", reflect.TypeOf((*MockStore)(nil).UpdateCarUsernameByVIN), arg0, arg1)
 }
 
 // UpdateCarYearByVIN mocks base method.
@@ -331,4 +359,49 @@ func (m *MockStore) UpdateMaintenanceTypeByVIN(arg0 context.Context, arg1 db.Upd
 func (mr *MockStoreMockRecorder) UpdateMaintenanceTypeByVIN(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateMaintenanceTypeByVIN", reflect.TypeOf((*MockStore)(nil).UpdateMaintenanceTypeByVIN), arg0, arg1)
+}
+
+// UpdateUserCountryByID mocks base method.
+func (m *MockStore) UpdateUserCountryByID(arg0 context.Context, arg1 db.UpdateUserCountryByIDParams) (db.User, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateUserCountryByID", arg0, arg1)
+	ret0, _ := ret[0].(db.User)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateUserCountryByID indicates an expected call of UpdateUserCountryByID.
+func (mr *MockStoreMockRecorder) UpdateUserCountryByID(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateUserCountryByID", reflect.TypeOf((*MockStore)(nil).UpdateUserCountryByID), arg0, arg1)
+}
+
+// UpdateUserFullNameByID mocks base method.
+func (m *MockStore) UpdateUserFullNameByID(arg0 context.Context, arg1 db.UpdateUserFullNameByIDParams) (db.User, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateUserFullNameByID", arg0, arg1)
+	ret0, _ := ret[0].(db.User)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateUserFullNameByID indicates an expected call of UpdateUserFullNameByID.
+func (mr *MockStoreMockRecorder) UpdateUserFullNameByID(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateUserFullNameByID", reflect.TypeOf((*MockStore)(nil).UpdateUserFullNameByID), arg0, arg1)
+}
+
+// UpdateUsernameByID mocks base method.
+func (m *MockStore) UpdateUsernameByID(arg0 context.Context, arg1 db.UpdateUsernameByIDParams) (db.User, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateUsernameByID", arg0, arg1)
+	ret0, _ := ret[0].(db.User)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateUsernameByID indicates an expected call of UpdateUsernameByID.
+func (mr *MockStoreMockRecorder) UpdateUsernameByID(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateUsernameByID", reflect.TypeOf((*MockStore)(nil).UpdateUsernameByID), arg0, arg1)
 }

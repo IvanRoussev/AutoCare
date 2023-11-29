@@ -2,7 +2,10 @@ package api
 
 import (
 	"database/sql"
+	"errors"
+	"fmt"
 	db "github.com/IvanRoussev/autocare/db/sqlc"
+	"github.com/IvanRoussev/autocare/token"
 	"github.com/IvanRoussev/autocare/util"
 	"github.com/gin-gonic/gin"
 	"github.com/lib/pq"
@@ -131,47 +134,27 @@ func (server *Server) getUserByUsername(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, user)
 }
 
-type listUsersRequest struct {
-	PageID   int32 `form:"page_id" binding:"required,min=1"`
-	PageSize int32 `form:"page_size" binding:"required,min=5,max=10"`
+type deleteUserByUsernameRequest struct {
+	Username string `uri:"username" binding:"required,min=1"`
 }
 
-func (server *Server) getlistUsers(ctx *gin.Context) {
-	var req listUsersRequest
+func (server *Server) deleteUserByUsername(ctx *gin.Context) {
+	var req deleteUserByUsernameRequest
 
-	err := ctx.ShouldBindQuery(&req)
-	if err != nil {
-		ctx.JSON(http.StatusBadRequest, errorResponse(err))
-		return
-	}
-
-	arg := db.ListUsersParams{
-		Limit:  req.PageSize,
-		Offset: (req.PageID - 1) * req.PageSize,
-	}
-
-	users, err := server.store.ListUsers(ctx, arg)
-	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
-		return
-	}
-
-	ctx.JSON(http.StatusOK, users)
-}
-
-type deleteUserByIDRequest struct {
-	ID int64 `uri:"id" binding:"required,min=1"`
-}
-
-func (server *Server) deleteUserByID(ctx *gin.Context) {
-	var req deleteUserByIDRequest
 	err := ctx.ShouldBindUri(&req)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
 		return
 	}
+	authPayload := ctx.MustGet(authorizationPayloadKey).(*token.Payload)
+	if authPayload.Username != req.Username {
+		msg := fmt.Sprintf("authenticated user %v is different than user trying to delete %v", authPayload.Username, req.Username)
+		err := errors.New(msg)
+		ctx.JSON(http.StatusForbidden, errorResponse(err))
+		return
+	}
 
-	err = server.store.DeleteUserByID(ctx, req.ID)
+	err = server.store.DeleteUserByUsername(ctx, req.Username)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			ctx.JSON(http.StatusNotFound, errorResponse(err))
@@ -180,8 +163,8 @@ func (server *Server) deleteUserByID(ctx *gin.Context) {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
 	}
-
-	ctx.JSON(http.StatusNoContent, gin.H{"message": "User deleted successfully"})
+	msg := fmt.Sprintf("Successfully deleted %v", req.Username)
+	ctx.JSON(http.StatusNoContent, gin.H{"success": msg})
 }
 
 type loginUserRequest struct {
