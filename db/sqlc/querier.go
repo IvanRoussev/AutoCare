@@ -4,7 +4,6 @@ package db
 
 import (
 	"context"
-	"database/sql"
 )
 
 type Querier interface {
@@ -12,12 +11,12 @@ type Querier interface {
 	CreateMaintenance(ctx context.Context, arg CreateMaintenanceParams) (Maintenance, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
 	DeleteCarByVIN(ctx context.Context, vin string) error
-	DeleteMaintenanceByID(ctx context.Context, maintenanceID sql.NullInt32) error
+	DeleteMaintenanceByID(ctx context.Context, maintenanceID int32) error
 	DeleteMaintenanceByVIN(ctx context.Context, carVin string) error
 	DeleteUserByUsername(ctx context.Context, username string) error
 	GetCarByVIN(ctx context.Context, vin string) (Car, error)
 	GetListMaintenancesByVIN(ctx context.Context, arg GetListMaintenancesByVINParams) ([]Maintenance, error)
-	GetMaintenanceByID(ctx context.Context, maintenanceID sql.NullInt32) (Maintenance, error)
+	GetMaintenanceByID(ctx context.Context, maintenanceID int32) (Maintenance, error)
 	GetUserByID(ctx context.Context, id int64) (User, error)
 	GetUserByUsername(ctx context.Context, username string) (User, error)
 	ListCarsByUsername(ctx context.Context, arg ListCarsByUsernameParams) ([]Car, error)

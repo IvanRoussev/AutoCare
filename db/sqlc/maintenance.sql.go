@@ -5,7 +5,6 @@ package db
 
 import (
 	"context"
-	"database/sql"
 )
 
 const createMaintenance = `-- name: CreateMaintenance :one
@@ -39,7 +38,7 @@ const deleteMaintenanceByID = `-- name: DeleteMaintenanceByID :exec
 DELETE FROM maintenances WHERE maintenance_id = $1
 `
 
-func (q *Queries) DeleteMaintenanceByID(ctx context.Context, maintenanceID sql.NullInt32) error {
+func (q *Queries) DeleteMaintenanceByID(ctx context.Context, maintenanceID int32) error {
 	_, err := q.db.ExecContext(ctx, deleteMaintenanceByID, maintenanceID)
 	return err
 }
@@ -100,7 +99,7 @@ SELECT maintenance_id, car_vin, maintenance_type, mileage, created_at FROM maint
 WHERE maintenance_id = $1 LIMIT 1
 `
 
-func (q *Queries) GetMaintenanceByID(ctx context.Context, maintenanceID sql.NullInt32) (Maintenance, error) {
+func (q *Queries) GetMaintenanceByID(ctx context.Context, maintenanceID int32) (Maintenance, error) {
 	row := q.db.QueryRowContext(ctx, getMaintenanceByID, maintenanceID)
 	var i Maintenance
 	err := row.Scan(

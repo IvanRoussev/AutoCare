@@ -3,7 +3,6 @@
 package db
 
 import (
-	"database/sql"
 	"time"
 )
 
@@ -16,11 +15,11 @@ type Car struct {
 }
 
 type Maintenance struct {
-	MaintenanceID   sql.NullInt32 `json:"maintenance_id"`
-	CarVin          string        `json:"car_vin"`
-	MaintenanceType string        `json:"maintenance_type"`
-	Mileage         int32         `json:"mileage"`
-	CreatedAt       time.Time     `json:"created_at"`
+	MaintenanceID   int32     `json:"maintenance_id"`
+	CarVin          string    `json:"car_vin"`
+	MaintenanceType string    `json:"maintenance_type"`
+	Mileage         int32     `json:"mileage"`
+	CreatedAt       time.Time `json:"created_at"`
 }
 
 type User struct {

@@ -23,13 +23,12 @@ func (server *Server) setupRouter() {
 	// Cars Routes
 	authRoutes.POST("/cars", server.createCar)
 	authRoutes.GET("/cars/vin/:vin", server.getCarByVIN)
-	authRoutes.GET("/cars", server.getListCars)
 	authRoutes.GET("/cars/users/:username", server.getListCarsByUsername)
 	authRoutes.DELETE("/cars/vin/:vin", server.deleteCarByVIN)
 
 	// Maintenance Routes
 	authRoutes.POST("/maintenances", server.createMaintenance)
-	authRoutes.GET("/maintenances/:car_vin", server.getListMaintenanceByVIN)
+	authRoutes.GET("/maintenances/:vin", server.getListMaintenanceByVIN)
 	authRoutes.DELETE("/maintenances/:vin", server.deleteMaintenanceByVIN)
 	authRoutes.DELETE("/maintenances/id/:id", server.deleteMaintenanceByID)
 	server.router = router
