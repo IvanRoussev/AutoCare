@@ -1,0 +1,70 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0",
+        "title": "Auto Care",
+        "contact": {
+            "email": "ivan.roussev12@gmail.com",
+            "name": "Ivan Roussev"
+        }
+    },
+    "host": "localhost:8080",
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+    "paths": {
+        "/users": {
+            "post": {
+                "tags": ["user"],
+                "summary": "Creates a user",
+                "description": "Create yourself a user",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Username": {
+                                    "type": "string",
+                                    "example": "AmazingLama23"
+                                },
+                                "Password": {
+                                    "type": "string",
+                                    "example": "Password"
+                                },
+                                "FullName": {
+                                    "type": "string",
+                                    "example": "John Smith"
+                                },
+                                "Email": {
+                                    "type": "string",
+                                    "example": "example@gmail.com"
+                                },
+                                "Country": {
+                                    "type": "string",
+                                    "example": "Switzerland"
+                                }
+                            },
+                            "required": ["Username", "Password", "FullName", "Email", "Country"]
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successfully created User"
+                    },
+                    "400": {
+                        "description": "Bad request - Invalid input"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    },
+                    "403": {
+                        "description": "Status Forbidden Username is already taken"
+                    }
+                }
+            }
+        }
+    }
+}

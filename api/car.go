@@ -11,11 +11,10 @@ import (
 )
 
 type createCarRequest struct {
-	Vin      string `json:"vin"`
-	Username string `json:"username"`
-	Make     string `json:"make"`
-	Model    string `json:"model"`
-	Year     int32  `json:"year"`
+	Vin   string `json:"vin"`
+	Make  string `json:"make"`
+	Model string `json:"model"`
+	Year  int32  `json:"year"`
 }
 
 func (server *Server) createCar(ctx *gin.Context) {

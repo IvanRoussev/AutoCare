@@ -79,7 +79,7 @@ func (server *Server) createUser(ctx *gin.Context) {
 	}
 
 	resp := newUserResponse(user)
-	ctx.JSON(http.StatusOK, resp)
+	ctx.JSON(http.StatusCreated, resp)
 }
 
 type getUserByIDRequest struct {
