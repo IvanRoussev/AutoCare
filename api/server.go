@@ -6,8 +6,6 @@ import (
 	"github.com/IvanRoussev/autocare/token"
 	"github.com/IvanRoussev/autocare/util"
 	"github.com/gin-gonic/gin"
-	"github.com/gin-gonic/gin/binding"
-	"github.com/go-playground/validator/v10"
 )
 
 // Server servers HTTP requests for our Auto Care service
@@ -30,10 +28,6 @@ func NewServer(config util.Config, store db.Store) (*Server, error) {
 		tokenMaker: tokenMaker,
 	}
 
-	v, ok := binding.Validator.Engine().(*validator.Validate)
-	if ok {
-		v.RegisterValidation("maintenance_type", validMaintenanceType)
-	}
 	server.setupRouter()
 
 	return server, nil

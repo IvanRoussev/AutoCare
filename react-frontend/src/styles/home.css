@@ -1,0 +1,61 @@
+.home {
+  background-color: #292f36;
+  height: 100vh;
+}
+
+.homepage-title {
+  color: #4ecdc4;
+}
+
+.cars-containers {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-left: 5rem;
+  margin-top: 6rem;
+}
+
+.car-card {
+  margin-bottom: 5vh;
+  background-color: #f7fff7;
+  border: none;
+}
+
+.log-maintenance-button {
+  background-color: #ffe66d;
+  font-size: 10px;
+  height: 20px;
+  border: none;
+  border-radius: 5px;
+}
+
+.log-maintenance-button:hover {
+  background-color: #ffe76daf;
+  transition: 0.7s;
+}
+
+.create-button-div {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  margin-bottom: 100px;
+}
+
+.create-car-button {
+  background-color: #abff4f;
+  color: #ff6b6b;
+  font-weight: 800;
+  border: none;
+  border-radius: 5px;
+  width: 100px;
+}
+
+@media only screen and (max-width: 600px) {
+  .cars-containers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 0;
+    margin-top: 50px;
+  }
+}

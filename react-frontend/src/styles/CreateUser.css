@@ -1,0 +1,17 @@
+/* CreateUser.css */
+
+.create-user-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.create-user-form {
+  width: 100%;
+  max-width: 600px;
+}
+
+.create-user-button {
+  width: 100%;
+}
