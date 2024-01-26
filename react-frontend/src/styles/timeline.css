@@ -1,0 +1,10 @@
+.timeline-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.timeline {
+  margin-top: 10rem;
+}

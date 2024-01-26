@@ -3,6 +3,7 @@ import { Select, Input, Button, message } from 'antd';
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../../styles/LogMaintenance.css';
 
 const CreateaMaintenanceLog = async (maintenance, mileage, vin, navigate) => {
   const token = localStorage.getItem('token');
@@ -54,6 +55,11 @@ function LogMaintenance() {
     setSelectedMaintenance(value);
   };
 
+  const handleBackToHomeClick = () => {
+    const username = localStorage.getItem('username');
+    navigate(`/home/${username}`);
+  };
+
   const navigate = useNavigate();
 
   const handleCreateMaintenance = (vin) => {
@@ -69,30 +75,46 @@ function LogMaintenance() {
   };
 
   return (
-    <div>
-      <h1>Log your Maintenance</h1>
-      <h2>
-        {car.make} {car.model} | {car.year}
-      </h2>
-      <h3>Enter type of maintenances done</h3>
-      <Select
-        mode='tags'
-        style={{
-          width: '100%',
-        }}
-        placeholder='Tags Mode'
-        onChange={handleChange}
-        options={options}
-      />
-      <h4>Enter Mileage done at</h4>
-      <Input
-        type='number'
-        value={mileage}
-        onChange={(e) => setMileage(e.target.value)}
-      />
-      <Button type='primary' onClick={() => handleCreateMaintenance(car.vin)}>
-        Primary Button
-      </Button>
+    <div className='logMaintenance-page'>
+      <div className='titles-maintenance'>
+        <h1>Log your Maintenance</h1>
+        <h3>Enter type of maintenances done</h3>
+      </div>
+      <div className='maintenance-container'>
+        <h2>
+          {car.make} {car.model} | {car.year}
+        </h2>
+        <div className='maintenance-form'>
+          <Select
+            mode='tags'
+            style={{
+              width: '100%',
+            }}
+            placeholder='Tags Mode'
+            onChange={handleChange}
+            options={options}
+          />
+          <h4>Enter Mileage done at</h4>
+          <Input
+            type='number'
+            value={mileage}
+            onChange={(e) => setMileage(e.target.value)}
+          />
+          <button
+            className='back-to-cars-from-logMaintenance'
+            onClick={handleBackToHomeClick}
+          >
+            Back to Cars
+          </button>
+          <Button
+            type='primary'
+            className='button-create-maintenance'
+            onClick={() => handleCreateMaintenance(car.vin)}
+          >
+            Log Maintenance
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }

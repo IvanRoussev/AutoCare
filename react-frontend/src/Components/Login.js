@@ -3,10 +3,13 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Login.css'; // Import the external styles
 import NavBar from './NavBar';
-import { Nav, Navbar } from 'react-bootstrap';
 
 const Login = () => {
   const navigate = useNavigate();
+
+  const handleBackToLandingPageClick = () => {
+    navigate('/');
+  };
 
   const handleLoginFailed = () => {
     // console.log('LOGIN FAILED');
@@ -46,7 +49,8 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className='login-page'>
+      <NavBar />
       <div className='login-container'>
         <div className='login-titles'>
           <h1>Welcome,</h1>
@@ -103,9 +107,21 @@ const Login = () => {
                 span: 16,
               }}
             >
-              <Button className='login-button' type='primary' htmlType='submit'>
-                Submit
-              </Button>
+              <div className='login-form-buttons'>
+                <Button
+                  className='login-button'
+                  type='primary'
+                  htmlType='submit'
+                >
+                  Sign in
+                </Button>
+                <button
+                  className='back-to-home'
+                  onClick={handleBackToLandingPageClick}
+                >
+                  EXIT
+                </button>
+              </div>
             </Form.Item>
           </Form>
         </div>

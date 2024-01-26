@@ -48,12 +48,8 @@ const docTemplate = `{
                                     "type": "string",
                                     "example": "example@gmail.com"
                                 },
-                                "country": {
-                                    "type": "string",
-                                    "example": "Switzerland"
-                                }
                             },
-                            "required": ["username", "password", "full_name", "email", "country"]
+                            "required": ["username", "password", "full_name", "email"]
                         }
                     }
                 ],

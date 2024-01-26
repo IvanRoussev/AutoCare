@@ -1,16 +1,41 @@
+:root {
+  --login-page-background-color: #c0d6df;
+  --login-form-background-color: #eaeaea;
+  --login-page-title-color: #4f6d7a;
+  --form-text-color: #e8dab2;
+  --navbar-color: #dd6e42;
+  --cancel-button: #e34234;
+}
+
+.login-page {
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--login-page-background-color);
+}
+
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: antiquewhite;
+  height: 100%;
+  padding-bottom: 5rem;
 }
 
 .form-container {
   margin-left: 50px;
-  background-color: rgb(190, 180, 166);
+  background-color: var(--login-form-background-color);
   padding: 50px 50px 25px 0px;
   border-radius: 20px;
+}
+
+.login-form-buttons {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.back-to-home {
+  width: 5rem;
+  background-color: #e34234;
 }
 
 .login-form {
@@ -24,10 +49,7 @@
 
 .login-button {
   width: 100%;
-}
-
-.login-titles {
-  padding-bottom: 5rem;
+  margin-left: 5px;
 }
 
 .login-titles h1 {
@@ -36,6 +58,11 @@
 
 .login-titles h2 {
   font-size: 50px;
+  color: var(--navbar-color);
+}
+
+.login-titles {
+  color: var(--login-page-title-color);
 }
 
 @media only screen and (max-width: 900px) {

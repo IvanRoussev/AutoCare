@@ -19,7 +19,6 @@ AutoCare, An app to track your cars maintenance records. Keep all of your cars r
 | `full_name` | `string` | First and last name| **Yes** |
 | `password` | `string` | **Min 6 Characters**|**Yes** |
 | `email` | `string` | **Must be valid email format**|**Yes** |
-| `country` | `string` | Your Country of residence | **Yes** |
 
 
 ### Login User

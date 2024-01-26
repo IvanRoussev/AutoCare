@@ -1,17 +1,35 @@
+:root {
+  --delete-button: #e34234;
+  --text-color: #eaeaea;
+  --log-maintenance-button: #27ae60;
+  --timeline-button: #85c1e9;
+}
+
 .home {
+  height: 100vh;
+  background-image: url('../pictures/homepage-grage-background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   background-color: #292f36;
   height: 100vh;
 }
 
 .homepage-title {
-  color: #4ecdc4;
+  color: var(--text-color);
+  text-align: center;
+  background-color: rgb(123, 123, 36);
+  border: 5px solid yellow;
+  height: auto;
+  border-radius: 10px;
+  width: 20%;
 }
 
 .cars-containers {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  margin-left: 5rem;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-evenly;
   margin-top: 6rem;
 }
 
@@ -19,19 +37,6 @@
   margin-bottom: 5vh;
   background-color: #f7fff7;
   border: none;
-}
-
-.log-maintenance-button {
-  background-color: #ffe66d;
-  font-size: 10px;
-  height: 20px;
-  border: none;
-  border-radius: 5px;
-}
-
-.log-maintenance-button:hover {
-  background-color: #ffe76daf;
-  transition: 0.7s;
 }
 
 .create-button-div {
@@ -42,17 +47,75 @@
 }
 
 .create-car-button {
-  background-color: #abff4f;
-  color: #ff6b6b;
-  font-weight: 800;
+  /* background-color: #abff4f;
+  color: #ff6b6b; */
+  font-weight: 700;
+  /* border: none;
+  border-radius: 5px; */
+  color: var(--text-color);
+  width: 10%;
+  height: 40px;
+  border-radius: 5px;
+  background-color: #557c55;
+  background-repeat: no-repeat;
+  border: none;
+}
+
+.delete-car-button {
+  background-color: var(--delete-button);
+  border: none;
+  color: var(--text-color);
+  font-weight: 600;
+  border-radius: 5px;
+  font-size: 12px;
+  height: 40px;
+}
+
+.log-maintenance-button {
+  background-color: var(--log-maintenance-button);
+  color: var(--text-color);
+  font-weight: 600;
+  border-radius: 5px;
+  font-size: 12px;
+  border: none;
+  height: 40px;
+}
+
+.create-timeline-button {
+  background-color: var(--t);
+  color: var(--text-color);
+  font-weight: 600;
+  border-radius: 5px;
+  font-size: 12px;
+  border: none;
+  height: 40px;
+}
+
+.username-title-homepage {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.create-timeline-button {
+  background-color: var(--timeline-button);
+  color: var(--text-color);
+  font-weight: 600;
+  border-radius: 5px;
+  font-size: 12px;
   border: none;
   border-radius: 5px;
-  width: 100px;
+  height: 40px;
+}
+
+.username-title-homepage h1 {
+  font-weight: 800;
 }
 
 @media only screen and (max-width: 600px) {
   .cars-containers {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin-left: 0;

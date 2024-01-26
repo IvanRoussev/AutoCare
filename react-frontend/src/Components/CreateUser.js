@@ -10,7 +10,7 @@ function toArr(str) {
 }
 
 const MyFormItemGroup = ({ prefix, children }) => {
-  const prefixPath = useContext(MyFormItemContext);
+  const prefixPath  = useContext(MyFormItemContext);
   const concatPath = useMemo(
     () => [...prefixPath, ...toArr(prefix)],
     [prefixPath, prefix]
@@ -33,6 +33,10 @@ const MyFormItem = ({ name, ...props }) => {
 const CreateUser = () => {
   const navigate = useNavigate();
 
+  const handleBackToLandingPageClick = () => {
+    navigate('/');
+  };
+
   const onFinish = async (values) => {
     const user = values['user'];
     try {
@@ -43,7 +47,6 @@ const CreateUser = () => {
           username: user['username'],
           password: user['password'],
           email: user['email'],
-          country: user['country'],
         }),
         headers: {
           'Content-type': 'application/json',
@@ -125,27 +128,18 @@ const CreateUser = () => {
           >
             <Input />
           </MyFormItem>
-          <MyFormItem
-            name='country'
-            label='Country'
-            rules={[
-              {
-                pattern: /^[A-Za-z\s]+$/, // Only letters and spaces allowed
-                message: 'Please enter a valid country name',
-              },
-              {
-                required: true,
-                message: 'Please enter your Country of Residence',
-              },
-            ]}
-          >
-            <Input />
-          </MyFormItem>
         </MyFormItemGroup>
-
-        <Button type='primary' htmlType='submit'>
-          Submit
-        </Button>
+        <div className='create-user-buttons-div'>
+          <button
+            className='back-to-home-from-createuser'
+            onClick={handleBackToLandingPageClick}
+          >
+            Back to Home
+          </button>
+          <Button type='primary' htmlType='submit'>
+            Submit
+          </Button>
+        </div>
       </Form>
     </div>
   );

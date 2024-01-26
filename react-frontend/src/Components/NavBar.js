@@ -2,7 +2,7 @@ function NavBar() {
   return (
     <nav>
       <div className='nav-wrapper'>
-        <a href='#' className='brand-logo'>
+        <a href='/' className='brand-logo'>
           Auto Records Hub
         </a>
         <ul id='menu' className='menu'>

@@ -9,10 +9,10 @@ import (
 
 const createUser = `-- name: CreateUser :one
 INSERT INTO users (
-username, hash_password, full_name, email, country
+username, hash_password, full_name, email
 ) VALUES (
- $1, $2, $3, $4, $5
-) RETURNING id, username, hash_password, full_name, email, password_change_at, country, created_at
+ $1, $2, $3, $4
+) RETURNING id, username, hash_password, full_name, email, password_change_at, created_at
 `
 
 type CreateUserParams struct {
@@ -20,7 +20,6 @@ type CreateUserParams struct {
 	HashPassword string `json:"hash_password"`
 	FullName     string `json:"full_name"`
 	Email        string `json:"email"`
-	Country      string `json:"country"`
 }
 
 func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, error) {
@@ -29,7 +28,6 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, e
 		arg.HashPassword,
 		arg.FullName,
 		arg.Email,
-		arg.Country,
 	)
 	var i User
 	err := row.Scan(
@@ -39,7 +37,6 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, e
 		&i.FullName,
 		&i.Email,
 		&i.PasswordChangeAt,
-		&i.Country,
 		&i.CreatedAt,
 	)
 	return i, err
@@ -55,7 +52,7 @@ func (q *Queries) DeleteUserByUsername(ctx context.Context, username string) err
 }
 
 const getUserByID = `-- name: GetUserByID :one
-SELECT id, username, hash_password, full_name, email, password_change_at, country, created_at FROM users
+SELECT id, username, hash_password, full_name, email, password_change_at, created_at FROM users
 WHERE id = $1
 LIMIT 1
 `
@@ -70,14 +67,13 @@ func (q *Queries) GetUserByID(ctx context.Context, id int64) (User, error) {
 		&i.FullName,
 		&i.Email,
 		&i.PasswordChangeAt,
-		&i.Country,
 		&i.CreatedAt,
 	)
 	return i, err
 }
 
 const getUserByUsername = `-- name: GetUserByUsername :one
-SELECT id, username, hash_password, full_name, email, password_change_at, country, created_at FROM users
+SELECT id, username, hash_password, full_name, email, password_change_at, created_at FROM users
 WHERE username = $1
 LIMIT 1
 `
@@ -92,7 +88,6 @@ func (q *Queries) GetUserByUsername(ctx context.Context, username string) (User,
 		&i.FullName,
 		&i.Email,
 		&i.PasswordChangeAt,
-		&i.Country,
 		&i.CreatedAt,
 	)
 	return i, err

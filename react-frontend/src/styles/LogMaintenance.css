@@ -1,0 +1,38 @@
+.maintenance-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: 25vh;
+}
+
+.titles-maintenance {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.back-to-cars-from-logMaintenance {
+  color: white;
+  font-weight: 600;
+  background-color: rgb(227, 128, 128);
+  font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+  border-radius: 6px;
+  border: none;
+}
+
+.back-to-cars-from-logMaintenance:hover {
+  transition: ease-in-out 0.2s;
+  background-color: rgb(192, 87, 87);
+}
+
+@media only screen and (max-width: 600px) {
+  .maintenance-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 25vh;
+  }
+}

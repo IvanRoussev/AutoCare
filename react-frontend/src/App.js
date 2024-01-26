@@ -1,7 +1,6 @@
 // App.jsx
 
 import React from 'react';
-import NavBar from './Components/NavBar';
 import Landing from './Components/Landing';
 import './App.css';
 import Login from './Components/Login';
@@ -10,6 +9,7 @@ import Home from './Components/Home';
 import CreateCar from './Components/Car/GetMake';
 import GetCarInfo from './Components/Car/GetCarInfo';
 import LogMaintenance from './Components/Maintenance/LogMaintenance';
+import ShowTimeline from './Components/Maintenance/ShowTimeline';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -29,6 +29,10 @@ function App() {
           <Route
             path='home/:username/:car_vin/log-maintenance'
             element={<LogMaintenance />}
+          />
+          <Route
+            path='home/:username/:car_vin/timeline'
+            element={<ShowTimeline />}
           />
         </Routes>
       </div>

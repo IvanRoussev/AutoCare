@@ -40,13 +40,9 @@
                                 "Email": {
                                     "type": "string",
                                     "example": "example@gmail.com"
-                                },
-                                "Country": {
-                                    "type": "string",
-                                    "example": "Switzerland"
                                 }
                             },
-                            "required": ["Username", "Password", "FullName", "Email", "Country"]
+                            "required": ["Username", "Password", "FullName", "Email"]
                         }
                     }
                 ],

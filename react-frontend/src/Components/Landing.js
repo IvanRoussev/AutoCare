@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
+import '../styles/Landing.css';
 import NavBar from './NavBar';
 
 function Landing() {

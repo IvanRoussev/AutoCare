@@ -1,0 +1,22 @@
+:root {
+  --page-title: #eb5e28;
+  --car-card-background: #fffcf2;
+  --page-background: #ccc5b9;
+  --car-title-color: #252422;
+  --dark-gray: #403d39;
+}
+
+.vehicle-title {
+  display: flex;
+  justify-content: center;
+  color: var(--page-title);
+  font-weight: 700;
+}
+
+.get-car-info-page {
+  background-color: var(--car-card-background);
+}
+
+.create-car-form Form {
+  color: var(--page-title);
+}

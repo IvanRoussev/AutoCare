@@ -6,7 +6,6 @@ CREATE TABLE "users"
   "full_name" VARCHAR NOT NULL,
   "email" VARCHAR UNIQUE NOT NULL,
   "password_change_at" timestamptz NOT NULL DEFAULT('0001-01-01 00:00:00Z'),
-  "country" VARCHAR NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT(NOW())
 );
 

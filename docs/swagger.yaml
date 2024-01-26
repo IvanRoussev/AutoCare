@@ -36,15 +36,11 @@ paths:
               Email:
                 type: string
                 example: example@gmail.com
-              Country:
-                type: string
-                example: Switzerland
             required:
               - Username
               - Password
               - FullName
               - Email
-              - Country
       responses:
         '201':
           description: Successfully created User

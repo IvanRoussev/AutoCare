@@ -29,6 +29,5 @@ type User struct {
 	FullName         string    `json:"full_name"`
 	Email            string    `json:"email"`
 	PasswordChangeAt time.Time `json:"password_change_at"`
-	Country          string    `json:"country"`
 	CreatedAt        time.Time `json:"created_at"`
 }

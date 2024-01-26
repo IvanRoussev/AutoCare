@@ -18,7 +18,6 @@ type createUserRequest struct {
 	Password string `json:"password" binding:"required,min=6"`
 	FullName string `json:"full_name" binding:"required"`
 	Email    string `json:"email" binding:"required,email"`
-	Country  string `json:"country" binding:"required"`
 }
 
 type userResponse struct {
@@ -27,7 +26,6 @@ type userResponse struct {
 	FullName         string    `json:"full_name"`
 	Email            string    `json:"email"`
 	PasswordChangeAt time.Time `json:"password_change_at"`
-	Country          string    `json:"country"`
 	CreatedAt        time.Time `json:"created_at"`
 }
 
@@ -39,7 +37,6 @@ func newUserResponse(user db.User) userResponse {
 		Email:            user.Email,
 		PasswordChangeAt: user.PasswordChangeAt,
 		CreatedAt:        user.CreatedAt,
-		Country:          user.Country,
 	}
 }
 
@@ -61,7 +58,6 @@ func (server *Server) createUser(ctx *gin.Context) {
 		HashPassword: hashedPassword,
 		FullName:     req.FullName,
 		Email:        req.Email,
-		Country:      req.Country,
 	}
 
 	user, err := server.store.CreateUser(ctx, arg)

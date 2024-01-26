@@ -1,8 +1,8 @@
 -- -- name: CreateOwner :one
 -- INSERT INTO owners (
---  first_name, last_name, country
+--  first_name, last_name
 -- ) VALUES (
---  $1, $2, $3
+--  $1, $2,
 -- ) RETURNING *;
 --
 -- -- name: GetOwnerByID :one
@@ -27,11 +27,7 @@
 -- WHERE id = $1
 -- RETURNING *;
 --
--- -- name: UpdateOwnerCountryByID :one
--- UPDATE owners
--- SET country = $2
--- WHERE id = $1
--- RETURNING *;
+
 --
 -- -- name: DeleteOwnerByID :exec
 -- DELETE FROM owners WHERE id = $1;
